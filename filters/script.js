@@ -6,8 +6,8 @@ const html = htm.bind(h)
 
 function Filter() {
   const [open, setOpen] = useState(false)
-  const [filter, setFilter] = useState()
-  const [list, setList] = useState()
+  const [filter, setFilter] = useState('')
+  const [list, setList] = useState([])
 
   const parseList = (list) => {
     const len = list.length
@@ -34,7 +34,7 @@ function Filter() {
 
   useEffect(() => {
     const onClick = () => {
-      if (event.target.closest('#remove')) return
+      if (event.target.closest('[data-remove]')) return
       if (open) setOpen(false)
       if (!event.target.closest('.filter-step-one, .filter-step-two')) return
       setOpen(true)
@@ -74,7 +74,7 @@ function Filter() {
               <option>is not</option>
             </select>
           </div>
-          <input type="email" id="vals" class="pds-input" list="options" value=${list ? list : ''} onInput=${({target}) => setList(target.value.split(','))} multiple />
+          <input type="email" class="pds-input" list="options" value=${list ? list : ''} onInput=${({target}) => setList(target.value.split(','))} multiple />
           <datalist id="options">
             <option>one</option>
             <option>two</option>
@@ -87,7 +87,7 @@ function Filter() {
             <option>nine</option>
             <option>ten</option>
           </datalist>
-          <button type="button" id="remove" class="pds-button pds-button-xs pds-mt-sm pds-fl-right" onClick=${reset}>Remove filter</button>
+          <button type="button" data-remove class="pds-button-link pds-mt-sm pds-fl-right" onClick=${reset}>Remove filter</button>
         </div>
       </div>
     </div>
@@ -95,9 +95,14 @@ function Filter() {
 }
 
 function App() {
-  return(html`
-    <${Filter} />
-  `)
+  const [count, setCount] = useState(1)
+  const elements = []
+
+  for (let i = 0; i < count; i++) {
+    elements.push(html`<${Filter} />`)
+  }
+
+  return elements
 }
 
 render(html`<${App} />`, document.getElementById('root'))
