@@ -1,0 +1,6 @@
+.filter-step-two {
+  min-width: 300px;
+}
+input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
