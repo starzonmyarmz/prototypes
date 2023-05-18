@@ -1,5 +1,6 @@
 import { h, Component, render } from 'https://esm.sh/preact'
 import { useEffect, useState } from 'https://esm.sh/preact/hooks'
+import { DndListItem, DndList } from './drag_and_drop.js'
 import htm from 'https://esm.sh/htm'
 
 const html = htm.bind(h)
@@ -9,10 +10,28 @@ function App() {
   const [customize, setCustomize] = useState(false)
   const [recurring, setRecurring] = useState('never')
   const [duration, setDuration] = useState('first')
+  const [columns, setColumns] = useState(['Date', 'Client', 'Project', 'Project code', 'Task', 'Notes', 'Hours', 'Hours rounded', 'Billable', 'Invoiced', 'Approved', 'Notes', 'First name', 'Last name', 'Roles', 'Employee', 'Billable rate', 'Billable amount', 'Cost rate', 'Cost amount', 'Currency', 'External reference url'])
+
+  const moveItem = (source, dest) => {
+    const newColumns = [...columns.slice(0, source), ...columns.slice(source + 1)]
+    newColumns.splice(dest, 0, columns[source])
+    setColumns(newColumns)
+  }
   
-  function Data() {
+  function Checkboxes(column, index) {
     return(html`
-      customize the data here!
+      <div id="checkboxes" class="pds-card">
+        <${DndList} onMoveItem=${moveItem}>
+          ${columns.map((column, index) => {
+            return(html`
+              <div class="pds-checkbox" data-checkbox>
+                <input type="checkbox" id="checkbox_column_${index}" checked />
+                <label for="checkbox_column_${index}">${column}</label>
+              </div>
+            `)
+          })}
+        </${DndList}>
+      </div>
     `)
   }
 
@@ -29,6 +48,7 @@ function App() {
           <label for="customize_yes">Let me specify what data is included in the export</label>
         </div>
       </fieldset>
+      ${customize ? Checkboxes() : ''}
     `)
   }
 
@@ -134,12 +154,11 @@ function App() {
 
   return (html`
     <div class="pds-dialog-backdrop pds-dialog-open">
-      <div class="pds-dialog" role="alertdialog">
+      <div class="pds-dialog pds-dialog-md" role="alertdialog">
         <h1 class="pds-dialog-title">Save export</h1>
         <div class="contain">
           <${Format} />
           ${format == 'excel' || format == 'csv' ? Customize() : ''}
-          ${customize ? Data() : ''}
           <${Recurring} />
           ${recurring == 'monthly' ? RecurringDuration() : ''}
           ${recurring !== 'never' ? RecurringName() : ''}
@@ -152,6 +171,5 @@ function App() {
     </div>
   `)
 }
-
 
 render(html`<${App} />`, document.getElementById('root'))
