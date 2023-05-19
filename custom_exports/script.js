@@ -11,6 +11,7 @@ function App() {
   const [recurring, setRecurring] = useState('never')
   const [duration, setDuration] = useState('first')
   const [columns, setColumns] = useState(['Date', 'Client', 'Project', 'Project code', 'Task', 'Notes', 'Hours', 'Hours rounded', 'Billable', 'Invoiced', 'Approved', 'Notes', 'First name', 'Last name', 'Roles', 'Employee', 'Billable rate', 'Billable amount', 'Cost rate', 'Cost amount', 'Currency', 'External reference url'])
+  const [dialogOpen, setDialogOpen] = useState(false)
 
   const moveItem = (source, dest) => {
     const newColumns = [...columns.slice(0, source), ...columns.slice(source + 1)]
@@ -153,7 +154,7 @@ function App() {
   }
 
   return (html`
-    <div class="pds-dialog-backdrop pds-dialog-open">
+    <div class="pds-dialog-backdrop ${dialogOpen ? 'pds-dialog-open' : '' }">
       <div class="pds-dialog pds-dialog-md" role="alertdialog">
         <h1 class="pds-dialog-title">Custom export</h1>
         <div class="contain">
@@ -164,11 +165,12 @@ function App() {
           ${recurring !== 'never' ? RecurringName() : ''}
           <div class="pds-flex-list pds-mt-sm">
             <button type="button" class="pds-button pds-button-primary">${recurring !== 'never' ? 'Save recurring export' : 'Export report'}</button>
-            <button type="button" class="pds-button">Cancel</button>
+            <button type="button" class="pds-button" onClick=${() => setDialogOpen(false)}>Cancel</button>
           </div>
         </div>
       </div>
     </div>
+    <button type="button" id="open_exports" onClick=${() => setDialogOpen(true)}>Exports</button>
   `)
 }
 

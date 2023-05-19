@@ -1,3 +1,9 @@
+body {
+  background: url(time_report.png) 50% 0 no-repeat;
+  background-size: 1232px 743px;
+  min-height: 743px;
+}
+
 .contain {
   display: flex;
   flex-direction: column;
@@ -35,4 +41,17 @@
 
 .dnd-list-item {
 
+}
+
+#open_exports {
+  background: transparent;
+  border: 0;
+  color: transparent;
+  height: 29px;
+  left: 50%;
+  margin-left: 499px;
+  overflow: hidden;
+  position: absolute;
+  top: 442px;
+  width: 57px;
 }
