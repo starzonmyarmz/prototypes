@@ -155,15 +155,15 @@ function App() {
   return (html`
     <div class="pds-dialog-backdrop pds-dialog-open">
       <div class="pds-dialog pds-dialog-md" role="alertdialog">
-        <h1 class="pds-dialog-title">Save export</h1>
+        <h1 class="pds-dialog-title">Custom export</h1>
         <div class="contain">
           <${Format} />
           ${format == 'excel' || format == 'csv' ? Customize() : ''}
           <${Recurring} />
           ${recurring == 'monthly' ? RecurringDuration() : ''}
           ${recurring !== 'never' ? RecurringName() : ''}
-          <div class="pds-flex-list">
-            <button type="button" class="pds-button pds-button-primary">Save export</button>
+          <div class="pds-flex-list pds-mt-sm">
+            <button type="button" class="pds-button pds-button-primary">${recurring !== 'never' ? 'Save recurring export' : 'Export report'}</button>
             <button type="button" class="pds-button">Cancel</button>
           </div>
         </div>
