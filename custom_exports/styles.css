@@ -43,15 +43,28 @@ body {
 
 }
 
-#open_exports {
-  background: transparent;
-  border: 0;
-  color: transparent;
-  height: 29px;
+#scheduled_exports {
+  color: #1d1e1cb3;
+  display: block;
+  font-size: 13px;
+  font-weight: 400;
   left: 50%;
-  margin-left: 499px;
-  overflow: hidden;
+  line-height: 1.25;
+  margin-left: -63px;
+  padding: 16px 4px;
   position: absolute;
-  top: 442px;
-  width: 57px;
+  text-decoration: none;
+  top: 47px;
+  white-space: nowrap;
+}
+
+#export_menu_container {
+  left: 50%;
+  margin-left: 479px;
+  position: absolute;
+  top: 442px;  
+}
+
+#export_menu {
+  margin-top: 4px;
 }

@@ -11,7 +11,20 @@ function App() {
   const [recurring, setRecurring] = useState('never')
   const [duration, setDuration] = useState('first')
   const [columns, setColumns] = useState(['Date', 'Client', 'Project', 'Project code', 'Task', 'Notes', 'Hours', 'Hours rounded', 'Billable', 'Invoiced', 'Approved', 'Notes', 'First name', 'Last name', 'Roles', 'Employee', 'Billable rate', 'Billable amount', 'Cost rate', 'Cost amount', 'Currency', 'External reference url'])
+  const [menuOpen, setMenuOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
+
+  useEffect(() => {
+    const onClick = () => {
+      if (menuOpen) setMenuOpen(false)
+    }
+
+    document.addEventListener('click', onClick)
+
+    return () => {
+      document.removeEventListener('click', onClick)
+    }
+  }, [menuOpen])
 
   const moveItem = (source, dest) => {
     const newColumns = [...columns.slice(0, source), ...columns.slice(source + 1)]
@@ -164,13 +177,29 @@ function App() {
           ${recurring == 'monthly' ? RecurringDuration() : ''}
           ${recurring !== 'never' ? RecurringName() : ''}
           <div class="pds-flex-list pds-mt-sm">
-            <button type="button" class="pds-button pds-button-primary">${recurring !== 'never' ? 'Save recurring export' : 'Export report'}</button>
+            <button type="button" class="pds-button pds-button-primary" onClick=${() => setDialogOpen(false)}>${recurring !== 'never' ? 'Save recurring export' : 'Export report'}</button>
             <button type="button" class="pds-button" onClick=${() => setDialogOpen(false)}>Cancel</button>
           </div>
         </div>
       </div>
     </div>
-    <button type="button" id="open_exports" onClick=${() => setDialogOpen(true)}>Exports</button>
+    <div id="export_menu_container">
+      <button type="button" id="export_menu_button" class="pds-button pds-button-sm" onClick=${() => setMenuOpen(true)}>
+        Export
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-label="Down chevron icon" aria-hidden="true">
+          <polyline points="5 9 12 17 19 9"></polyline>
+        </svg>
+      </button>
+      <div id="export_menu" class="pds-menu pds-menu-right" hidden=${!menuOpen}>
+        <ul>
+          <li><button type="button" class="pds-menu-item">Excel</button></li>
+          <li><button type="button" class="pds-menu-item">CSV</button></li>
+          <li><button type="button" class="pds-menu-item">QuickBooks</button></li>
+          <li><button type="button" class="pds-menu-item">PDF</button></li>
+          <li><button type="button" class="pds-menu-item pds-menu-separator" onClick=${() => setDialogOpen(true)}>Customize…</button></li>
+        </ul>
+      </div>
+    </div>
   `)
 }
 
