@@ -95,10 +95,6 @@ a#scheduled-exports:hover {
   top: 310px;  
 }
 
-#export_menu {
+#export_menu, .list-menu {
   margin-top: 4px;
-}
-
-tbody tr:hover {
-  background: #deedfd;
 }

@@ -38,8 +38,40 @@ const data = [
  }
 ]
 
-function App() {
+function Menu() {
+  const [menuOpen, setMenuOpen] = useState(false)
 
+  useEffect(() => {
+    const onClick = () => {
+      if (menuOpen) setMenuOpen(false)
+    }
+
+    document.addEventListener('click', onClick)
+
+    return () => {
+      document.removeEventListener('click', onClick)
+    }
+  }, [menuOpen])
+
+  return (html`
+    <div class="pds-position-relative">
+      <button type="button" class="pds-button pds-button-sm list-menu-button" onClick=${() => { setMenuOpen(true)}}>
+        Actions
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-label="Down chevron icon" aria-hidden="true">
+          <polyline points="5 9 12 17 19 9"></polyline>
+        </svg>
+      </button>
+      <div class="pds-menu pds-menu-right list-menu" hidden=${!menuOpen}>
+        <ul>
+          <li><button type="button" class="pds-menu-item">Edit</button></li>
+          <li><button type="button" class="pds-menu-item pds-menu-item-danger">Delete</button></li>
+        </ul>
+      </div>
+    </div>
+  `)
+}
+
+function App() {
   return (html`
     <div class="pds-container">
       <table class="pds-table">
@@ -61,12 +93,7 @@ function App() {
                 <td>${row.recurring}</td>
                 <td>${row.date}</td>
                 <td class="pds-text-right">
-                  <button type="button" class="pds-button pds-button-sm">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-label="Down chevron icon" aria-hidden="true">
-                      <polyline points="5 9 12 17 19 9"></polyline>
-                    </svg>
-                  </button>
+                  ${Menu()}
                 </td>
               </tr>
             `)
