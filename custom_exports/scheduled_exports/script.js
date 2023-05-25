@@ -1,5 +1,6 @@
 import { h, Component, render } from 'https://esm.sh/preact'
 import { useEffect, useState } from 'https://esm.sh/preact/hooks'
+import { Dialog } from '../dialog.js'
 import htm from 'https://esm.sh/htm'
 
 const html = htm.bind(h)
@@ -39,6 +40,7 @@ const data = [
 ]
 
 function Menu() {
+  const [dialogOpen, setDialogOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -54,6 +56,7 @@ function Menu() {
   }, [menuOpen])
 
   return (html`
+    <${Dialog} dialogOpen=${dialogOpen} setDialogOpen=${setDialogOpen} />
     <div class="pds-position-relative">
       <button type="button" class="pds-button pds-button-sm list-menu-button" onClick=${() => { setMenuOpen(true)}}>
         Actions
@@ -63,7 +66,7 @@ function Menu() {
       </button>
       <div class="pds-menu pds-menu-right list-menu" hidden=${!menuOpen}>
         <ul>
-          <li><button type="button" class="pds-menu-item">Edit</button></li>
+          <li><button type="button" class="pds-menu-item" onClick=${() => setDialogOpen(true)}>Edit</button></li>
           <li><button type="button" class="pds-menu-item pds-menu-item-danger">Delete</button></li>
         </ul>
       </div>
