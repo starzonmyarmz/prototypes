@@ -30,15 +30,17 @@ function App() {
           <polyline points="5 9 12 17 19 9"></polyline>
         </svg>
       </button>
-      <div id="export_menu" class="pds-menu pds-menu-right" hidden=${!menuOpen}>
-        <ul>
-          <li><button type="button" class="pds-menu-item">Excel</button></li>
-          <li><button type="button" class="pds-menu-item">CSV</button></li>
-          <li><button type="button" class="pds-menu-item">QuickBooks</button></li>
-          <li><button type="button" class="pds-menu-item">PDF</button></li>
-          <li><button type="button" class="pds-menu-item pds-menu-separator" onClick=${() => setDialogOpen(true)}>Customize…</button></li>
-        </ul>
-      </div>
+      ${menuOpen && (html`
+        <div id="export_menu" class="pds-menu pds-menu-right">
+          <ul>
+            <li><button type="button" class="pds-menu-item">Excel</button></li>
+            <li><button type="button" class="pds-menu-item">CSV</button></li>
+            <li><button type="button" class="pds-menu-item">QuickBooks</button></li>
+            <li><button type="button" class="pds-menu-item">PDF</button></li>
+            <li><button type="button" class="pds-menu-item pds-menu-separator" onClick=${() => setDialogOpen(true)}>Customize…</button></li>
+          </ul>
+        </div>
+      `)}
     </div>
   `)
 }
