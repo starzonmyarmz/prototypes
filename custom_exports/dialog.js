@@ -20,7 +20,7 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
   
   function Checkboxes(column, index) {
     return(html`
-      <div class="checkboxes" class="pds-card">
+      <div class="pds-card checkboxes">
         <${DndList} onMoveItem=${moveItem}>
           ${columns.map((column, index) => {
             return(html`
