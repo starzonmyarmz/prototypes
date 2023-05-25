@@ -22,7 +22,7 @@ function App() {
   }, [menuOpen])
 
   return (html`
-    <${Dialog} dialogOpen=${dialogOpen} setDialogOpen=${setDialogOpen} />
+    <${Dialog} dialogOpen=${dialogOpen} setDialogOpen=${setDialogOpen} state="save" />
     <div id="export_menu_container">
       <button type="button" id="export_menu_button" class="pds-button pds-button-sm" onClick=${() => setMenuOpen(true)}>
         Export

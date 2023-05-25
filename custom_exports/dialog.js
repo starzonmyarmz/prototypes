@@ -5,7 +5,7 @@ import htm from 'https://esm.sh/htm'
 
 const html = htm.bind(h)
 
-export function Dialog({ dialogOpen, setDialogOpen }) {
+export function Dialog({ dialogOpen, setDialogOpen, state }) {
   const [format, setFormat] = useState('excel')
   const [customize, setCustomize] = useState(false)
   const [recurring, setRecurring] = useState('never')
@@ -152,6 +152,14 @@ export function Dialog({ dialogOpen, setDialogOpen }) {
     `)
   }
 
+  function buttonText() {
+    if (recurring !== 'never') {
+      return state === 'save' ? 'Save recurring and export' : 'Edit recurring export'      
+    } else {
+      return 'Export report'
+    }
+  }
+
   return(html`
     <div class="pds-dialog-backdrop ${dialogOpen ? 'pds-dialog-open' : '' }">
       <div class="pds-dialog pds-dialog-md" role="alertdialog">
@@ -163,7 +171,7 @@ export function Dialog({ dialogOpen, setDialogOpen }) {
           ${recurring == 'monthly' ? RecurringDuration() : ''}
           ${recurring !== 'never' ? RecurringName() : ''}
           <div class="pds-flex-list pds-mt-sm">
-            <button type="button" class="pds-button pds-button-primary" onClick=${() => setDialogOpen(false)}>${recurring !== 'never' ? 'Save recurring export' : 'Export report'}</button>
+            <button type="button" class="pds-button pds-button-primary" onClick=${() => setDialogOpen(false)}>${buttonText()}</button>
             <button type="button" class="pds-button" onClick=${() => setDialogOpen(false)}>Cancel</button>
           </div>
         </div>

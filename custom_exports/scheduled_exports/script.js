@@ -41,6 +41,7 @@ const data = [
 
 function App() {
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
 
   function Menu() {
     const [menuOpen, setMenuOpen] = useState(false)
@@ -69,7 +70,7 @@ function App() {
           <div class="pds-menu pds-menu-right list-menu">
             <ul>
               <li><button type="button" class="pds-menu-item" onClick=${() => setDialogOpen(true)}>Edit</button></li>
-              <li><button type="button" class="pds-menu-item pds-menu-item-danger">Delete</button></li>
+              <li><button type="button" class="pds-menu-item pds-menu-item-danger" onClick=${() => setDeleteDialogOpen(true)}>Delete</button></li>
             </ul>
           </div>
         `)}
@@ -78,7 +79,17 @@ function App() {
   }
 
   return (html`
-    <${Dialog} dialogOpen=${dialogOpen} setDialogOpen=${setDialogOpen} />
+    <${Dialog} dialogOpen=${dialogOpen} setDialogOpen=${setDialogOpen} state="edit" />
+    <div class="pds-dialog-backdrop ${deleteDialogOpen ? 'pds-dialog-open' : '' }">
+      <div class="pds-dialog pds-dialog-sm" role="alertdialog">
+        <h1 class="pds-dialog-title">Delete export</h1>
+        <p>Are you sure you want to delete this recurring export? There is no undo. Deleting this export will not remove any data from your account.</p>
+        <div class="pds-flex-list pds-mt-sm">
+          <button type="button" class="pds-button pds-button-danger" onClick=${() => setDeleteDialogOpen(false)}>Delete export</button>
+          <button type="button" class="pds-button" onClick=${() => setDeleteDialogOpen(false)}>Cancel</button>
+        </div>
+      </div>
+    </div>
     <div class="pds-container">
       <table class="pds-table">
         <thead>
