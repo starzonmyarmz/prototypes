@@ -27,15 +27,14 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  height: calc(4 * 31px);
-  padding: 8px;
+  height: calc(4 * 37px);
+  padding: 4px;
   overflow-y: scroll;
 }
 
 [data-checkbox] {
   border: 1px solid transparent;
   border-radius: 4px;
-  list-height: 1;
   padding: 4px;
   position: relative;
 }
@@ -46,6 +45,15 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   cursor: grab;
   z-index: 2;
+}
+
+[data-checkbox] svg {
+  align-self: center;
+  stroke: rgba(29, 30, 28, 0.5);
+}
+
+[data-checkbox]:hover svg {
+  stroke: rgba(29, 30, 28, 0.9);
 }
 
 .dnd-list {

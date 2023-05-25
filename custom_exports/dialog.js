@@ -20,17 +20,23 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
   
   function Checkboxes(column, index) {
     return(html`
-      <div class="pds-card checkboxes">
-        <${DndList} onMoveItem=${moveItem}>
-          ${columns.map((column, index) => {
-            return(html`
-              <div class="pds-checkbox" data-checkbox>
-                <input type="checkbox" id="checkbox_column_${index}" checked />
-                <label for="checkbox_column_${index}">${column}</label>
-              </div>
-            `)
-          })}
-        </${DndList}>
+      <div>
+        <div class="pds-card checkboxes">
+          <${DndList} onMoveItem=${moveItem}>
+            ${columns.map((column, index) => {
+              return(html`
+                <div class="pds-checkbox" data-checkbox>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                  <input type="checkbox" id="checkbox_column_${index}" checked />
+                  <label for="checkbox_column_${index}">${column}</label>
+                </div>
+              `)
+            })}
+          </${DndList}>
+        </div>
+        <div class="pds-field-description">
+          You can include, exclude, and reorder columns. <button type="button" class="pds-button-link">Deselect all columns</button>
+        </div>
       </div>
     `)
   }
