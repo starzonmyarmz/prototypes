@@ -8,7 +8,7 @@ const html = htm.bind(h)
 export function Dialog({ dialogOpen, setDialogOpen, state }) {
   const [format, setFormat] = useState('excel')
   const [customize, setCustomize] = useState(false)
-  const [recurring, setRecurring] = useState('never')
+  const [recurring, setRecurring] = state == 'edit' ? useState('daily') : useState('never')
   const [duration, setDuration] = useState('first')
   const [columns, setColumns] = useState(['Date', 'Client', 'Project', 'Project code', 'Task', 'Notes', 'Hours', 'Hours rounded', 'Billable', 'Invoiced', 'Approved', 'Notes', 'First name', 'Last name', 'Roles', 'Employee', 'Billable rate', 'Billable amount', 'Cost rate', 'Cost amount', 'Currency', 'External reference url'])
 
@@ -18,20 +18,24 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
     setColumns(newColumns)
   }
   
-  function Checkboxes(column, index) {
+  function Checkbox(column) {
+    const [checked, setChecked] = useState(true)
+
+    return(html`
+      <div class="pds-checkbox" data-checkbox>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        <input type="checkbox" id="checkbox_column_${column}" checked=${checked} onClick=${() => setChecked(!checked)} />
+        <label for="checkbox_column_${column}">${column}</label>
+      </div>
+    `)
+  }
+
+  function Checkboxes() {
     return(html`
       <div>
         <div class="pds-card checkboxes">
           <${DndList} onMoveItem=${moveItem}>
-            ${columns.map((column, index) => {
-              return(html`
-                <div class="pds-checkbox" data-checkbox>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                  <input type="checkbox" id="checkbox_column_${index}" checked />
-                  <label for="checkbox_column_${index}">${column}</label>
-                </div>
-              `)
-            })}
+            ${columns.map(column => Checkbox(column))}
           </${DndList}>
         </div>
         <div class="pds-field-description">
@@ -132,7 +136,7 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
           <legend class="pds-label">Recurring export</legend>
           <div class="pds-choices">
             <div class="pds-choice">
-              <input type="radio" name="recurring_export" id="recurring_export_never" checked=${recurring == 'never'} onClick=${() => setRecurring('never')} />
+              <input type="radio" name="recurring_export" id="recurring_export_never" checked=${recurring == 'never'} disabled=${state == 'edit'} onClick=${() => setRecurring('never')} />
               <label for="recurring_export_never">Never</label>
             </div>
             <div class="pds-choice">
@@ -160,7 +164,7 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
 
   function buttonText() {
     if (recurring !== 'never') {
-      return state === 'save' ? 'Save recurring and export' : 'Edit recurring export'      
+      return state === 'save' ? 'Save and export' : 'Save changes'      
     } else {
       return 'Export report'
     }

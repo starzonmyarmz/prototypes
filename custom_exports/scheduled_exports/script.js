@@ -70,7 +70,8 @@ function App() {
           <div class="pds-menu pds-menu-right list-menu">
             <ul>
               <li><button type="button" class="pds-menu-item" onClick=${() => setDialogOpen(true)}>Edit</button></li>
-              <li><button type="button" class="pds-menu-item pds-menu-item-danger" onClick=${() => setDeleteDialogOpen(true)}>Delete</button></li>
+              <li><button type="button" class="pds-menu-item" onClick=${() => setDialogOpen(true)}>Export</button></li>
+              <li><button type="button" class="pds-menu-item pds-menu-separator pds-menu-item-danger" onClick=${() => setDeleteDialogOpen(true)}>Delete</button></li>
             </ul>
           </div>
         `)}

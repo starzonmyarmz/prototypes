@@ -37,7 +37,7 @@ function App() {
             <li><button type="button" class="pds-menu-item">CSV</button></li>
             <li><button type="button" class="pds-menu-item">QuickBooks</button></li>
             <li><button type="button" class="pds-menu-item">PDF</button></li>
-            <li><button type="button" class="pds-menu-item pds-menu-separator" onClick=${() => setDialogOpen(true)}>Customize…</button></li>
+            <li><button type="button" class="pds-menu-item pds-menu-separator" onClick=${() => setDialogOpen(true)}>Custom Export</button></li>
           </ul>
         </div>
       `)}
