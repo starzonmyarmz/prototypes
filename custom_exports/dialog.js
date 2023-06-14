@@ -7,7 +7,6 @@ const html = htm.bind(h)
 
 export function Dialog({ dialogOpen, setDialogOpen, state }) {
   const [format, setFormat] = useState('excel')
-  const [customize, setCustomize] = useState(false)
   const [recurring, setRecurring] = state == 'edit' ? useState('daily') : useState('never')
   const [duration, setDuration] = useState('first')
   const [columns, setColumns] = useState(['Date', 'Client', 'Project', 'Project code', 'Task', 'Notes', 'Hours', 'Hours rounded', 'Billable', 'Invoiced', 'Approved', 'Notes', 'First name', 'Last name', 'Roles', 'Employee', 'Billable rate', 'Billable amount', 'Cost rate', 'Cost amount', 'Currency', 'External reference url'])
@@ -23,9 +22,9 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
 
     return(html`
       <div class="pds-checkbox" data-checkbox>
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         <input type="checkbox" id="checkbox_column_${column}" checked=${checked} onClick=${() => setChecked(!checked)} />
         <label for="checkbox_column_${column}">${column}</label>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </div>
     `)
   }
@@ -33,13 +32,19 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
   function Checkboxes() {
     return(html`
       <div>
+        <div class="pds-card pds-card-secondary pds-p-sm" style="margin-bottom: -1px">
+          <div class="pds-checkbox">
+            <input type="checkbox" id="select-all" checked />
+            <label for="select-all" class="pds-text-sm pds-color-muted">Column header</label>
+          </div>
+        </div>
         <div class="pds-card checkboxes">
           <${DndList} onMoveItem=${moveItem}>
             ${columns.map(column => Checkbox(column))}
           </${DndList}>
         </div>
         <div class="pds-field-description">
-          You can include, exclude, and reorder columns. <button type="button" class="pds-button-link">Deselect all columns</button>
+          You can include, exclude, and reorder columns.
         </div>
       </div>
     `)
@@ -49,16 +54,8 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
     return(html`
       <fieldset>
         <legend class="pds-label">Customize exported data</legend>
-        <div class="pds-radio">
-          <input type="radio" id="customize_no" name="customize_data" checked=${!customize} onClick=${() => setCustomize(!customize)}/>
-          <label for="customize_no">Include all available data in export</label>
-        </div>
-        <div class="pds-radio">
-          <input type="radio" id="customize_yes" name="customize_data" checked=${customize} onClick=${() => setCustomize(!customize)}/>
-          <label for="customize_yes">Let me specify what data is included in the export</label>
-        </div>
+        ${Checkboxes()}
       </fieldset>
-      ${customize ? Checkboxes() : ''}
     `)
   }
 
@@ -155,8 +152,8 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
         </fieldset>
         <div class="pds-field-description">
           ${recurring == 'never' ? 'This report will not be automatically exported.' : ''}
-          ${recurring == 'daily' ? 'This report will export now, and an updated export will be generated every Sunday, and will be sent via email.' : ''}
-          ${recurring == 'weekly' ? 'This report will export now, and an updated export will be generated every morning, and will be sent via email.' : ''}
+          ${recurring == 'daily' ? 'This report will export now, and an updated export will be generated every morning, and will be sent via email.' : ''}
+          ${recurring == 'weekly' ? 'This report will export now, and an updated export will be generated every Sunday, and will be sent via email.' : ''}
         </div>
       </div>
     `)

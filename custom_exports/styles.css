@@ -47,8 +47,11 @@
   z-index: 2;
 }
 
+[data-checkbox] {}
+
 [data-checkbox] svg {
   align-self: center;
+  margin-left: auto;
   stroke: rgba(29, 30, 28, 0.5);
 }
 
