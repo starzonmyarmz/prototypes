@@ -109,9 +109,9 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
           <option value="last">Last day of the month</option>
         </select>
         <div class="pds-field-description">
-          ${duration == 'first' ? html`This report will export now, and an updated export will be generated on the 1st of every month, and will be sent via email.` : ''}
-          ${duration == 'fifteenth' ? html`This report will export now, and an updated export will be generated on the 15th of every month, and will be sent via email.` : ''}
-          ${duration == 'last' ? html`This report will export now, and an updated export will be generated on the last day of every month, and will be sent via email.` : ''}
+          ${duration == 'first' ? html`This report will export now, and an updated export will be generated and sent via email on the first of every month.` : ''}
+          ${duration == 'fifteenth' ? html`This report will export now, and an updated export will be generated and sent via email on the 15th of every month.` : ''}
+          ${duration == 'last' ? html`This report will export now, and an updated export will be generated and sent via email on the last day of every month.` : ''}
         </div>
       </div>
     `)    
@@ -152,8 +152,8 @@ export function Dialog({ dialogOpen, setDialogOpen, state }) {
         </fieldset>
         <div class="pds-field-description">
           ${recurring == 'never' ? 'This report will not be automatically exported.' : ''}
-          ${recurring == 'daily' ? 'This report will export now, and an updated export will be generated every morning, and will be sent via email.' : ''}
-          ${recurring == 'weekly' ? 'This report will export now, and an updated export will be generated every Sunday, and will be sent via email.' : ''}
+          ${recurring == 'daily' ? 'This report will export now and an updated export will be generated and sent via email every morning.' : ''}
+          ${recurring == 'weekly' ? 'This report will export now, and an updated export will be generated and sent via email every Sunday.' : ''}
         </div>
       </div>
     `)
