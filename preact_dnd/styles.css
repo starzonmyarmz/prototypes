@@ -1,0 +1,30 @@
+.contain {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: calc(8 * 21px);
+  padding: 8px;
+  overflow-y: scroll;
+}
+
+[data-checkbox] {
+  padding: 4px;
+}
+
+[data-checkbox]:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dnd-list {
+  
+}
+
+.dnd-list-item {
+
+}
