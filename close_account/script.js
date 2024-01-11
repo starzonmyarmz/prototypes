@@ -204,15 +204,19 @@ function App() {
             <div class="pds-choices pds-m-0 pds-mt-xs pds-mb-sm">
               <div class="pds-choice">
                 <input type="radio" name="times" id="time_1" />
-                <label for="time_1" aria-label="Clockify"><img src="clockify-logo.png" alt="" width="112" aria-hidden="true" /></label>
+                <label for="time_1" aria-label="Clockify"><img src="clockify-logo.png" alt="" width="88" aria-hidden="true" /></label>
               </div>
               <div class="pds-choice">
                 <input type="radio" name="times" id="time_2" />
-                <label for="time_2" aria-label="Everhour"><img src="everhour-logo.png" alt="" width="128" aria-hidden="true" /></label>
+                <label for="time_2" aria-label="Everhour"><img src="everhour-logo.png" alt="" width="96" aria-hidden="true" /></label>
               </div>
               <div class="pds-choice">
                 <input type="radio" name="times" id="time_3" />
-                <label for="time_3" aria-label="Toggl"><img src="toggl-logo.png" alt="" width="80" aria-hidden="true" /></label>
+                <label for="time_3" aria-label="Toggl"><img src="toggl-logo.png" alt="" width="72" aria-hidden="true" /></label>
+              </div>
+              <div class="pds-choice">
+                <input type="radio" name="times" id="time_4" />
+                <label for="time_4">Other</label>
               </div>
             </div>
           </div>
@@ -224,15 +228,19 @@ function App() {
             <div class="pds-choices pds-m-0 pds-mt-xs pds-mb-sm">
               <div class="pds-choice">
                 <input type="radio" name="pms" id="pms_1" />
-                <label for="pms_1" aria-label="Asana"><img src="asana-logo.png" alt="" width="112" aria-hidden="true" /></label>
+                <label for="pms_1" aria-label="Asana"><img src="asana-logo.png" alt="" width="88" aria-hidden="true" /></label>
               </div>
               <div class="pds-choice">
                 <input type="radio" name="pms" id="pms_2" />
-                <label for="pms_2" aria-label="ClickUp"><img src="clickup-logo.png" alt="" width="112" aria-hidden="true" /></label>
+                <label for="pms_2" aria-label="ClickUp"><img src="clickup-logo.png" alt="" width="88" aria-hidden="true" /></label>
               </div>
               <div class="pds-choice">
                 <input type="radio" name="pms" id="pms_3" />
-                <label for="pms_3" aria-label="Monday"><img src="monday-logo.png" alt="" width="128" aria-hidden="true" /></label>
+                <label for="pms_3" aria-label="Monday"><img src="monday-logo.png" alt="" width="96" aria-hidden="true" /></label>
+              </div>
+              <div class="pds-choice">
+                <input type="radio" name="pms" id="pms_4" />
+                <label for="pms_4">Other</label>
               </div>
             </div>
           </div>
@@ -244,15 +252,19 @@ function App() {
             <div class="pds-choices pds-m-0 pds-mt-xs pds-mb-sm">
               <div class="pds-choice">
                 <input type="radio" name="invoices" id="invoices_1" />
-                <label for="invoices_1" aria-label="Freshbooks"><img src="freshbooks-logo.png" alt="" width="112" aria-hidden="true" /></label>
+                <label for="invoices_1" aria-label="Freshbooks"><img src="freshbooks-logo.png" alt="" width="88" aria-hidden="true" /></label>
               </div>
               <div class="pds-choice">
                 <input type="radio" name="invoices" id="invoices_2" />
-                <label for="invoices_2" aria-label="QuickBooks"><img src="quickbooks-logo.png" alt="" width="112" aria-hidden="true" /></label>
+                <label for="invoices_2" aria-label="QuickBooks"><img src="quickbooks-logo.png" alt="" width="88" aria-hidden="true" /></label>
               </div>
               <div class="pds-choice">
                 <input type="radio" name="invoices" id="invoices_3" />
-                <label for="invoices_3" aria-label="Xero"><img src="xero-logo.png" alt="" width="48" aria-hidden="true" /></label>
+                <label for="invoices_3" aria-label="Xero"><img src="xero-logo.png" alt="" width="40" aria-hidden="true" /></label>
+              </div>
+              <div class="pds-choice">
+                <input type="radio" name="invoices" id="invoices_4" />
+                <label for="invoices_4">Other</label>
               </div>
             </div>
           </div>
