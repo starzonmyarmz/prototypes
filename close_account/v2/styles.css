@@ -1,0 +1,58 @@
+* {
+  text-wrap: pretty;
+}
+
+body {
+  background: #fff8f1;
+}
+
+nav {
+  background: #fa5d00;
+  background-size: 96px 112px;
+  display: flex;
+  gap: 8px;
+}
+
+nav div {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 48px;
+  padding: 0 8px;
+}
+
+ul {
+  list-style: disc;
+  margin-bottom: 16px;
+  padding-left: 32px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+#root {
+  position: relative;
+  top: 112px;
+}
+
+
+:is(#needs_2, #needs_4, #needs_5, #tool_1, #tool_2, #tool_3, #tool_6) ~ div > :is(div, textarea, input) {
+  display: none;
+  width: 500px;
+}
+
+:is(#needs_2, #needs_4, #needs_5, #tool_1, #tool_2, #tool_3, #tool_6):checked ~ div > :is(textarea, input) {
+  display: block;
+}
+
+:is(#tool_1, #tool_2, #tool_3):checked ~ div > div {
+  display: grid;
+}
+
+.pds-choice img {
+  padding: 8px 0;
+}
