@@ -6,7 +6,7 @@ const html = htm.bind(h)
 
 function App() {
   const [currentWhyStep, setCurrentWhyStep] = useState('start')
-  const [whyStep, setWhyStep] = useState('needs')
+  const [whyStep, setWhyStep] = useState(null)
 
   return (html`
     ${currentWhyStep === 'start' && (html`
@@ -55,7 +55,7 @@ function App() {
         </fieldset>
         <div class="pds-flex pds-gap-xs">
           <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep('start')}>Back</button>
-          <button type="button" class="pds-button pds-button-primary" onClick=${() => setCurrentWhyStep(whyStep)}>Continue</button>
+          <button type="button" class="pds-button pds-button-primary" onClick=${() => setCurrentWhyStep(whyStep == null ? 'competitor' : whyStep)}>Continue</button>
         </div>
       </section>
     `)}
@@ -73,7 +73,7 @@ function App() {
           </div>
           <div class="pds-radio">
             <input type="radio" id="needs_2" name="needs" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="needs_2">Harvest is missing the feature(s) or integration(s) we need</label>
               <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
             </div>
@@ -84,14 +84,14 @@ function App() {
           </div>
           <div class="pds-radio">
             <input type="radio" id="needs_4" name="needs" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="needs_4">We struggled to fit Harvest into our workflow</label>
               <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
             </div>
           </div>
           <div class="pds-radio">
             <input type="radio" id="needs_5" name="needs" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="needs_5">We were looking for a different kind of tool</label>
               <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
             </div>
@@ -241,74 +241,77 @@ function App() {
           </legend>
           <div class="pds-radio">
             <input type="radio" id="tool_1" name="tool" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="tool_1">A time tracking tool</label>
               <div class="pds-choices pds-m-0 pds-mt-xs pds-mb-sm">
                 <div class="pds-choice">
                   <input type="radio" name="times" id="time_1" />
-                  <label for="time_1" aria-label="Clockify"></label>
+                  <label for="time_1">Clockify</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="times" id="time_2" />
-                  <label for="time_2" aria-label="Everhour"></label>
+                  <label for="time_2">Everhour</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="times" id="time_3" />
-                  <label for="time_3" aria-label="Toggl"></label>
+                  <label for="time_3">Toggl</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="times" id="time_4" />
                   <label for="time_4">Other</label>
                 </div>
               </div>
+              <input class="pds-input pds-m-0 pds-mb-sm" placeholder="What tool?" />
             </div>
           </div>
           <div class="pds-radio">
             <input type="radio" id="tool_2" name="tool" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="tool_2">A project management tool</label>
               <div class="pds-choices pds-m-0 pds-mt-xs pds-mb-sm">
                 <div class="pds-choice">
                   <input type="radio" name="pms" id="pms_1" />
-                  <label for="pms_1" aria-label="Asana"></label>
+                  <label for="pms_1">Asana</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="pms" id="pms_2" />
-                  <label for="pms_2" aria-label="ClickUp"></label>
+                  <label for="pms_2">ClickUp</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="pms" id="pms_3" />
-                  <label for="pms_3" aria-label="Monday"></label>
+                  <label for="pms_3">Monday</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="pms" id="pms_4" />
                   <label for="pms_4">Other</label>
                 </div>
               </div>
+              <input class="pds-input pds-m-0 pds-mb-sm" placeholder="What tool?" />
             </div>
           </div>
           <div class="pds-radio">
             <input type="radio" id="tool_3" name="tool" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="tool_3">An accounting/invoicing tool</label>
               <div class="pds-choices pds-m-0 pds-mt-xs pds-mb-sm">
                 <div class="pds-choice">
                   <input type="radio" name="invoices" id="invoices_1" />
-                  <label for="invoices_1" aria-label="Freshbooks"></label>
+                  <label for="invoices_1">Freshbooks</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="invoices" id="invoices_2" />
-                  <label for="invoices_2" aria-label="QuickBooks"></label>
+                  <label for="invoices_2">QuickBooks</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="invoices" id="invoices_3" />
-                  <label for="invoices_3" aria-label="Xero"></label>
+                  <label for="invoices_3">Xero</label>
                 </div>
                 <div class="pds-choice">
                   <input type="radio" name="invoices" id="invoices_4" />
                   <label for="invoices_4">Other</label>
                 </div>
               </div>
+              <input class="pds-input pds-m-0 pds-mb-sm" placeholder="What tool?" />
             </div>
           </div>
           <div class="pds-radio">
@@ -321,7 +324,7 @@ function App() {
           </div>
           <div class="pds-radio">
             <input type="radio" id="tool_6" name="tool" />
-            <div>
+            <div class="pds-flex-fill">
               <label for="tool_6">Another tool not listed</label>
               <input class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="What tool?" />
             </div>
@@ -332,7 +335,7 @@ function App() {
           </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">
-          <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep(whyStep === 'adopt' ? 'why' : whyStep)}>Back</button>
+          <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep(whyStep == null ? 'why' : whyStep)}>Back</button>
           <button type="button" class="pds-button pds-button-primary" onClick=${() => setCurrentWhyStep('finish')}>Continue</button>
         </div>
       </section>

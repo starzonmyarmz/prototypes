@@ -40,17 +40,30 @@ fieldset {
 }
 
 
-:is(#needs_2, #needs_4, #needs_5, #tool_1, #tool_2, #tool_3, #tool_6) ~ div > :is(div, textarea, input) {
+:is(#needs_2, #needs_4, #needs_5, #tool_6) ~ div > :is(div, textarea, input) {
   display: none;
-  width: 500px;
 }
 
-:is(#needs_2, #needs_4, #needs_5, #tool_1, #tool_2, #tool_3, #tool_6):checked ~ div > :is(textarea, input) {
+:is(#needs_2, #needs_4, #needs_5, #tool_6):checked ~ div > :is(textarea, input) {
   display: block;
+}
+
+:is(#tool_1, #tool_2, #tool_3):not(:checked) ~ div > div {
+  display: none;
 }
 
 :is(#tool_1, #tool_2, #tool_3):checked ~ div > div {
   display: grid;
+}
+
+:is(#tool_1, #tool_2, #tool_3) ~ div:has(:not(:checked)) input {
+  display: none;
+}
+
+#tool_1:checked ~ div:has(#time_4:checked) input,
+#tool_2:checked ~ div:has(#pms_4:checked) input,
+#tool_3:checked ~ div:has(#invoices_4:checked) input {
+  display: revert;
 }
 
 .pds-choice img {
