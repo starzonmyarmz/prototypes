@@ -22,6 +22,10 @@ function App() {
         <p>We’ve got three quick questions for you. Once we’ve got your answers, you’ll be able to finish closing the account.</p>
         <p>Have you considered converting your account to our <a href="#">free plan</a>?</p>
         <button type="button" class="pds-button pds-button-primary" onClick=${() => setCurrentWhyStep('why')}>Continue</button>
+
+        <div class="pds-mt-xl pds-text-sm pds-color-muted">
+          Feel free to <a href="#" class="pds-color-inherit">contact support</a> if you have any questions.
+        </div>
       </section>
     `)}
 
@@ -362,12 +366,12 @@ function App() {
           <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep('competitor')}>Back</button>
           <button type="button" class="pds-button pds-button-danger">Close my account</button>
         </div>
+
+        <div class="pds-mt-xl pds-text-sm pds-color-muted">
+          Feel free to <a href="#" class="pds-color-inherit">contact support</a> if you have any questions.
+        </div>
       </section>
     `)}
-
-    <div class="pds-mt-xl pds-text-sm pds-color-muted">
-      Feel free to <a href="#" class="pds-color-inherit">contact support</a> if you have any questions.
-    </div>
   `)
 }
 
