@@ -27,6 +27,10 @@ ul {
   padding-left: 32px;
 }
 
+li + li {
+  margin-top: 4px;
+}
+
 fieldset {
   display: flex;
   flex-direction: column;

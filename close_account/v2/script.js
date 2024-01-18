@@ -12,19 +12,17 @@ function App() {
     ${currentWhyStep === 'start' && (html`
       <section>
         <h1 class="pds-mb-md">Close account</h1>
-        <img src="./peace.png" width="200" height="252" class="pds-fl-right pds-ml-md" />
-        <p>Okay, here’s what to expect…</p>
+        <img src="./peace.png" width="200" height="252" class="pds-show@sm pds-fl-right pds-ml-md pds-mb-md" />
+        <p>We’re sorry to see you go, but we appreciate the time you’ve spent with us! Here’s what to expect when you close the account:</p>
         <ul>
-          <li>Your Harvest account will be closed immediately.</li>
-          <li>We’ll email you a link to download your Harvest data. The link will expire in one week.</li>
-          <li>We’ll securely delete your Harvest data within 10 days. There are no recovery options.</li>
+          <li>The account will be closed immediately and your subscription will be canceled automatically.</li>
+          <li>We’ll email you a link to download your Harvest data. You’ll have one week before that link expires.</li>
+          <li><strong>We’ll securely delete your Harvest data within 10 days. After that, your data can’t be recovered.</strong></li>
         </ul>
-        <p>We’ve got three quick questions for you. Once we’ve got your answers, you’ll be able to finish closing the account.</p>
-        <p>Have you considered converting your account to our <a href="#">free plan</a>?</p>
+        <p>We’ve got three quick questions to help us understand what we can do better. Once we’ve got your answers, you’ll be able to finish closing the account.</p>
         <button type="button" class="pds-button pds-button-primary" onClick=${() => setCurrentWhyStep('why')}>Continue</button>
-
         <div class="pds-mt-xl pds-text-sm pds-color-muted">
-          Feel free to <a href="#" class="pds-color-inherit">contact support</a> if you have any questions.
+          PS: We have a free plan if you want to cancel your subscription, but still keep your account. Learn more in our <a href="#">Help Center</a> or <a href="#">contact support</a> for assistance.
         </div>
       </section>
     `)}
@@ -187,19 +185,19 @@ function App() {
           </legend>
           <div class="pds-radio">
             <input type="radio" id="adopt_1" name="adopt" />
-            <label for="adopt_1">Reason one</label>
+            <label for="adopt_1">We don’t have enough time to test Harvest right now.</label>
           </div>
           <div class="pds-radio">
             <input type="radio" id="adopt_2" name="adopt" />
-            <label for="adopt_2">Reason two</label>
+            <label for="adopt_2">We have to prioritize other work, but we might be back.</label>
           </div>
           <div class="pds-radio">
             <input type="radio" id="adopt_3" name="adopt" />
-            <label for="adopt_3">Reason three</label>
+            <label for="adopt_3">We changed our minds about time tracking.</label>
           </div>
           <div class="pds-radio">
             <input type="radio" id="adopt_4" name="adopt" />
-            <label for="adopt_4">Reason four</label>
+            <label for="adopt_4">We were curious about Harvest, but don’t have a need for time tracking or invoicing at this time.</label>
           </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">
@@ -348,17 +346,16 @@ function App() {
     ${currentWhyStep === 'finish' && (html`
       <section>
         <h1 class="pds-mb-md">Thanks for sharing!</h1>
-        <img src="./check.png" width="200" height="200" class="pds-fl-right pds-ml-md" />
-        <p>Okay, here’s what to expect…</p>
+        <img src="./check.png" width="200" height="200" class="pds-show@sm pds-fl-right pds-ml-md pds-mb-md" />
+        <p>Now let’s get you on your way. Again, here’s what to expect when you close the account:</p>
         <ul>
-          <li>Your Harvest account will be closed immediately, and you will lose access.</li>
-          <li>We’ll email you a link to download your Harvest data. The link will expire in one week.</li>
-          <li>We’ll securely delete your Harvest data within 10 days. There are no recovery options.</li>
-          <li>You will not be billed again.</li>
+          <li><strong>The account will be closed immediately</strong> and your subscription will be canceled automatically.</li>
+          <li>We’ll email you a link to download your Harvest data. <strong>You’ll have one week before that link expires</strong>.</li>
+          <li>We’ll securely delete your Harvest data within 10 days. <strong>After that, your data can’t be recovered</strong>.</li>
         </ul>
 
         <div class="pds-my-lg">
-          <label for="anything_else" class="pds-label">Anything else you’d like to share?</label>
+          <label for="anything_else" class="pds-label">Anything else you’d like to let us know?</label>
           <textarea id="anything_else" class="pds-input" rows="3"></textarea>
         </div>
 
@@ -368,7 +365,7 @@ function App() {
         </div>
 
         <div class="pds-mt-xl pds-text-sm pds-color-muted">
-          Feel free to <a href="#" class="pds-color-inherit">contact support</a> if you have any questions.
+          Questions or concerns about closing your account? <br /> Our <a href="#">support team</a> is happy to help.
         </div>
       </section>
     `)}
