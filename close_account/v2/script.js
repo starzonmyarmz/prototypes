@@ -102,6 +102,13 @@ function App() {
             <input type="radio" id="needs_6" name="needs" />
             <label for="needs_6">Harvest is too expensive</label>
           </div>
+          <div class="pds-radio">
+            <input type="radio" id="needs_7" name="needs" />
+            <div class="pds-flex-fill">
+              <label for="needs_7">Other</label>
+              <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
+            </div>
+          </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">
           <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep('why')}>Back</button>
@@ -137,6 +144,13 @@ function App() {
             <input type="radio" id="business_5" name="business" />
             <label for="business_5">Our business closed</label>
           </div>
+          <div class="pds-radio">
+            <input type="radio" id="business_6" name="business" />
+            <div class="pds-flex-fill">
+              <label for="business_6">Other</label>
+              <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
+            </div>
+          </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">
           <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep('why')}>Back</button>
@@ -168,6 +182,13 @@ function App() {
             <input type="radio" id="life_4" name="life" />
             <label for="life_4">I’m leaving this company</label>
           </div>
+          <div class="pds-radio">
+            <input type="radio" id="life_5" name="life" />
+            <div class="pds-flex-fill">
+              <label for="life_5">Other</label>
+              <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
+            </div>
+          </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">
           <button type="button" class="pds-button" onClick=${() => setCurrentWhyStep('why')}>Back</button>
@@ -185,19 +206,22 @@ function App() {
           </legend>
           <div class="pds-radio">
             <input type="radio" id="adopt_1" name="adopt" />
-            <label for="adopt_1">We don’t have enough time to test Harvest right now.</label>
+            <label for="adopt_1">We don’t have enough time to test Harvest right now, but we might be back.</label>
           </div>
           <div class="pds-radio">
             <input type="radio" id="adopt_2" name="adopt" />
-            <label for="adopt_2">We have to prioritize other work, but we might be back.</label>
+            <label for="adopt_2">We changed our minds about time tracking.</label>
           </div>
           <div class="pds-radio">
             <input type="radio" id="adopt_3" name="adopt" />
-            <label for="adopt_3">We changed our minds about time tracking.</label>
+            <label for="adopt_3">We liked Harvest, but we aren’t ready to migrate to another tool.</label>
           </div>
           <div class="pds-radio">
             <input type="radio" id="adopt_4" name="adopt" />
-            <label for="adopt_4">We were curious about Harvest, but don’t have a need for time tracking or invoicing at this time.</label>
+            <div class="pds-flex-fill">
+              <label for="adopt_4">Other</label>
+              <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
+            </div>
           </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">
@@ -225,6 +249,13 @@ function App() {
           <div class="pds-radio">
             <input type="radio" id="extra_3" name="extra" />
             <label for="extra_3">This was a test account</label>
+          </div>
+          <div class="pds-radio">
+            <input type="radio" id="extra_4" name="extra" />
+            <div class="pds-flex-fill">
+              <label for="extra_4">Other</label>
+              <textarea rows="2" class="pds-input pds-m-0 pds-mt-xs pds-mb-sm" placeholder="Can you tell us more?"></textarea>
+            </div>
           </div>
         </fieldset>
         <div class="pds-flex pds-gap-xs">

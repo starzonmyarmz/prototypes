@@ -44,11 +44,11 @@ fieldset {
 }
 
 
-:is(#needs_2, #needs_4, #needs_5, #tool_6) ~ div > :is(div, textarea, input) {
+:is(#needs_2, #needs_4, #needs_5, #needs_7, #business_6, #life_5, #adopt_4, #extra_4, #tool_6) ~ div > :is(div, textarea, input) {
   display: none;
 }
 
-:is(#needs_2, #needs_4, #needs_5, #tool_6):checked ~ div > :is(textarea, input) {
+:is(#needs_2, #needs_4, #needs_5, #needs_7, #business_6, #life_5, #adopt_4, #extra_4, #tool_6):checked ~ div > :is(textarea, input) {
   display: block;
 }
 
