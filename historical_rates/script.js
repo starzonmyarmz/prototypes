@@ -1,27 +1,41 @@
-import { h, Component, render } from 'https://esm.sh/preact'
-import { signal } from 'https://esm.sh/@preact/signals'
-// import { useState } from 'https://esm.sh/preact/hooks'
+import { h, Component, render } from 'https://esm.sh/preact@10.19.7'
+import { signal } from 'https://esm.sh/@preact/signals@1.2.3'
 import htm from 'https://esm.sh/htm'
+import dayjs from 'https://esm.sh/dayjs/dayjs.min.js'
 
 const html = htm.bind(h)
 
 const data = signal([
   {
     "rate": "100.00",
-    "start": "10/10/2000",
-    "end": "10/10/2020"
+    "start": dayjs().subtract(2, 'year').format('MM/DD/YYYY'),
+    "end": dayjs('11-11-9999').format('MM/DD/YYYY')
   },
   {
-    "rate": "100.00",
-    "start": "10/10/2000",
-    "end": "10/10/2020"
+    "rate": "90.00",
+    "start": dayjs('08-01-2019').format('MM/DD/YYYY'),
+    "end": dayjs().subtract(2, 'year').subtract(1, 'day').format('MM/DD/YYYY')
   },
   {
-    "rate": "100.00",
-    "start": "10/10/2000",
-    "end": "10/10/2020"
+    "rate": "80.00",
+    "start": dayjs('11-11-1111').format('MM/DD/YYYY'),
+    "end": dayjs('08-01-2019').subtract(1, 'day').format('MM/DD/YYYY')
   }
 ])
+
+const newRate = signal("")
+const newStart = signal("")
+const newEnd = signal("")
+
+function addRow() {
+  if (newRate.value === "" || newStart.value === "" || newEnd.value === "") return
+  if (!newRate.value.includes('.')) newRate.value = `${newRate}.00`
+  document.body.classList.add('loaded')
+  data.value = [...data.value, { rate: newRate.value, start: newStart.value, end: newEnd.value }]
+  newRate.value = ""
+  newStart.value = ""
+  newEnd.value = ""
+}
 
 function removeRow(index) {
   data.value.splice(index, 1)
@@ -29,6 +43,8 @@ function removeRow(index) {
 }
 
 function App() {
+  const updateValue = event => (newItem.value = event.target.value)
+
   return(html`
     <table class="pds-table">
       <thead>
@@ -57,14 +73,14 @@ function App() {
                     <span class="pds-color-muted">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     </span>
-                    <input type="text" value=${item.start} class="pds-flex-fill" />
+                    <input type="text" value=${item.start === "11/11/1111" ? "forever" : item.start} class="pds-flex-fill" />
                   </div>
                   to
                   <div class="pds-flex pds-gap-xs faux-input">
                     <span class="pds-color-muted">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                     </span>
-                    <input type="text" value=${item.end} class="pds-flex-fill" />
+                    <input type="text" value=${item.end === "11/11/9999" ? "forever" : item.end} class="pds-flex-fill" />
                   </div>
                 </div>
               </td>
@@ -76,6 +92,37 @@ function App() {
             </tr>
           `)}
         )}
+        <tr>
+          <td>
+            <div class="faux-input">
+              <div class="pds-flex pds-gap-xs wrap currency" style="width: 112px">
+                <span class="pds-color-muted">$</span>
+                <input type="text" value=${newRate.value} onInput=${(event) => { newRate.value = event.target.value }} class="pds-flex-fill pds-text-right no-style" />
+                <span class="pds-color-muted">USD</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="pds-flex pds-gap-xs date" style="width: 256px">
+              <div class="pds-flex pds-gap-xs faux-input">
+                <span class="pds-color-muted">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </span>
+                <input type="text" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} class="pds-flex-fill" />
+              </div>
+              to
+              <div class="pds-flex pds-gap-xs faux-input">
+                <span class="pds-color-muted">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </span>
+                <input type="text" value=${newEnd.value} onInput=${(event) => { newEnd.value = event.target.value }} class="pds-flex-fill" />
+              </div>
+            </div>
+          </td>
+          <td>
+            <button onClick=${addRow}>add</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   `)

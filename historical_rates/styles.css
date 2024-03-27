@@ -1,10 +1,19 @@
 body {
   display: grid;
-  place-items: center;
-  min-height: 100dvh;
+  justify-content: center;
+  margin-top: 64px;
 }
 
-#center, #root {
+.loaded tr {
+  background: #fff;
+  transition: all 2s 2s;
+
+  @starting-style {
+    background: #fff1cd;
+  }
+}
+
+#root {
   width: fit-content;
 
   &.pds-input {
