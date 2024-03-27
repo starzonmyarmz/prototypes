@@ -4,6 +4,14 @@ body {
   margin-top: 64px;
 }
 
+td, th {
+  width: 0.1%;
+}
+
+td:last-child {
+  text-align: center;
+}
+
 .loaded tr {
   background: #fff;
   transition: all 2s 2s;
@@ -33,7 +41,7 @@ body {
   max-width: 100%;
   padding: 6px 8px;
   vertical-align: middle;
-  width: 100%;
+  width: 128px;
 
   &:has(:focus-visible) {
     border-color: #1d1e1c;
