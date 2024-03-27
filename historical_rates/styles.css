@@ -70,7 +70,30 @@ input {
   background: #fde2dd;
   border-bottom: 1px solid #ef8b81 !important;
   border-top: 1px solid #ef8b81 !important;
+  height: revert !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
   position: relative;
   text-align: center !important;
   top: -1px;
+}
+
+tr:has(+ tr td.error-row) .faux-input-start,
+tr:has(+ tr td.error-row) + tr + tr .faux-input-end {
+  background: #fde2dd;
+  border-color: #ef8b81;
+
+  input {
+    color: #be2923;
+  }
+}
+
+
+
+.empty {
+  padding: 0 !important;
+}
+
+.form {
+  background: #fff8f1;
 }
