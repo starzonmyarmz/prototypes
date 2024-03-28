@@ -4,36 +4,62 @@ import htm from 'https://esm.sh/htm'
 import dayjs from 'https://esm.sh/dayjs/dayjs.min.js'
 
 const html = htm.bind(h)
+const DATE_FORMAT = "MM/DD/YYYY"
 
 const data = signal([
   {
-    "rate": "90.00",
-    "start": dayjs('08-01-2019').format('MM/DD/YYYY'),
-    "end": dayjs().subtract(2, 'year').subtract(1, 'day').format('MM/DD/YYYY')
+    "rate": "100.00",
+    "start": dayjs('3/28/2022'),
+    "end": dayjs('9-9-9999')
   },
   {
-    "rate": "100.00",
-    "start": dayjs().subtract(2, 'year').subtract(0, 'day').format('MM/DD/YYYY'),
-    "end": dayjs('9-9-9999').format('MM/DD/YYYY')
+    "rate": "90.00",
+    "start": dayjs('08-01-2019'),
+    "end": dayjs('3/27/2022')
   },
   {
     "rate": "80.00",
-    "start": dayjs('1-1-1111').format('MM/DD/YYYY'),
-    "end": dayjs('08-01-2019').subtract(1, 'day').format('MM/DD/YYYY')
+    "start": dayjs('1-1-1111'),
+    "end": dayjs('07-31-2019')
   }
 ])
 
-const newRate = signal("")
-const newStart = signal("")
-const newEnd = signal("")
+const newRate = signal('')
+const newStart = signal('')
+const newEnd = signal('')
 
 function addRow() {
-  if (!newRate.value.includes('.')) newRate.value = `${newRate}.00`
   document.body.classList.add('loaded')
-  data.value = [...data.value, { rate: newRate.value, start: newStart.value, end: newEnd.value }]
-  newRate.value = ""
-  newStart.value = ""
-  newEnd.value = ""
+
+  data.value = [...data.value, {
+    rate: parseDecimal(newRate.value),
+    start: dayjs(newStart.value),
+    end: dayjs(newEnd.value)
+  }].sort((a, b) => (dayjs(b.start).isAfter(dayjs(a.end)) ? 1 : -1))
+
+  newRate.value = ''
+  newStart.value = ''
+  newEnd.value = ''
+}
+
+function updateValue(prop, index) {
+  let value = event.target.value
+
+  if (prop === 'rate') value = parseDecimal(value)
+  if (prop === 'start') value = value === 'forever' ? dayjs('1-1-1111') : dayjs(value)
+  if (prop === 'end') value = value === 'forever' ? dayjs('9-9-9999') : dayjs(value)
+
+  data.value[index][prop] = value
+
+  data.value = [...data.value].sort((a, b) => (dayjs(b.start).isAfter(dayjs(a.end)) ? 1 : -1))
+}
+
+function parseForever(value) {
+  return value.$y == "1111" || value.$y == "9999" ? "forever" : dayjs(value).format(DATE_FORMAT)
+}
+
+function parseDecimal(value) {
+  if (!value.includes('.')) return `${value}.00`
 }
 
 function submitForm(event) {
@@ -43,12 +69,10 @@ function submitForm(event) {
 
 function removeRow(index) {
   data.value.splice(index, 1)
-  data.value = [...data.value]
+  data.value = [...data.value].sort((a, b) => (dayjs(b.start).isAfter(dayjs(a.end)) ? 1 : -1))
 }
 
 function App() {
-  const updateValue = event => (newItem.value = event.target.value)
-
   return(html`
     <form onSubmit=${submitForm}>
       <table class="pds-table">
@@ -62,7 +86,7 @@ function App() {
         </thead>
         <tbody>
           ${data.value.length > 0 ? html`
-            ${data.value.sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.end)) ? 1 : -1)).reverse().map((item, index) => {
+            ${data.value.map((item, index) => {
               let diff = 0
 
               if (index > 0) {
@@ -93,7 +117,7 @@ function App() {
                     <div class="faux-input">
                       <div class="pds-flex pds-gap-xs wrap currency">
                         <span class="pds-color-muted">$</span>
-                        <input type="text" aria-label="Billable rate of ${item.rate}" value=${item.rate} class="pds-flex-fill pds-text-right no-style" required />
+                        <input type="text" onBlur=${(event) => updateValue('rate', index)} value=${item.rate} class="pds-flex-fill pds-text-right no-style" required />
                         <span class="pds-color-muted">USD</span>
                       </div>
                     </div>
@@ -104,7 +128,7 @@ function App() {
                         <span class="pds-color-muted">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         </span>
-                        <input type="text" aria-label="Start date of ${item.start}" value=${item.start} class="pds-flex-fill" required />
+                        <input type="text" onBlur=${(event) => updateValue('start', index)} value=${parseForever(item.start)} class="pds-flex-fill" required />
                       </div>
                       to
                     </div>
@@ -114,7 +138,7 @@ function App() {
                       <span class="pds-color-muted">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                       </span>
-                      <input type="text" aria-label="End date of ${item.end}" value=${item.end} class="pds-flex-fill" required />
+                      <input type="text" onBlur=${(event) => updateValue('end', index)} value=${parseForever(item.end)} class="pds-flex-fill" required />
                     </div>
                   </td>
                   <td>
@@ -138,7 +162,7 @@ function App() {
               <div class="faux-input">
                 <div class="pds-flex pds-gap-xs wrap currency">
                   <span class="pds-color-muted">$</span>
-                  <input type="text" aria-label="New billable rate" value=${newRate.value} onInput=${(event) => { newRate.value = event.target.value }} class="pds-flex-fill pds-text-right no-style" required />
+                  <input type="text" value=${newRate.value} onInput=${(event) => { newRate.value = event.target.value }} class="pds-flex-fill pds-text-right no-style" required />
                   <span class="pds-color-muted">USD</span>
                 </div>
               </div>
@@ -149,7 +173,7 @@ function App() {
                   <span class="pds-color-muted">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                   </span>
-                  <input type="text" aria-label="New start date" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} class="pds-flex-fill" required />
+                  <input type="text" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} class="pds-flex-fill" required />
                 </div>
                 to
               </div>
@@ -159,7 +183,7 @@ function App() {
                 <span class="pds-color-muted">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 </span>
-                <input type="text" aria-label="New end date" value=${newEnd.value} onInput=${(event) => { newEnd.value = event.target.value }} class="pds-flex-fill" required />
+                <input type="text" value=${newEnd.value} onInput=${(event) => { newEnd.value = event.target.value }} class="pds-flex-fill" required />
               </div>
             </td>
             <td>
