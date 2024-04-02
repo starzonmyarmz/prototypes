@@ -86,16 +86,6 @@ input {
   top: -1px;
 }
 
-tr:has(+ tr td.error-row) .faux-input-start,
-tr:has(+ tr td.error-row) + tr + tr .faux-input-end {
-  background: #fde2dd;
-  border-color: #ef8b81;
-
-  input {
-    color: #be2923;
-  }
-}
-
 
 
 .empty {
