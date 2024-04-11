@@ -19,7 +19,6 @@ let data = signal([
   }
 ].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1)))
 
-
 let years = []
 totalYears()
 
@@ -108,9 +107,8 @@ function App() {
               <ul id="graph-rates">
                 ${data.value.map((item, index) => {
                   return(html`
-                    ${console.log()}
                     <li class="pds-position-relative" style="${index !== 0 ? `width: ${ellapsedMonths(item.start)}%` : ''}">
-                      <button class="graph-rate ${item.open ? 'active' : ''}" onClick=${() => openEditRate(index)} aria-label="$${item.rate} starting ${dayjs(item.start).format(DATE_FORMAT)}" data-tooltip="n">$${item.rate}</button>
+                      <button class="graph-rate ${item.open ? 'active' : ''}" onClick=${() => openEditRate(index)} aria-label="$${item.rate} ${index === 0 ? `before ${dayjs(data.value[1].start).format(DATE_FORMAT)}` : `starting ${dayjs(item.start).format(DATE_FORMAT)}`}" data-tooltip="n">$${item.rate}</button>
                       ${item.open && html`
                         <form onSubmit=${() => editRate(index)} class="pds-popover pds-popover-s edit-rate">
                           <div class="pds-flex pds-items-end pds-gap-xs pds-p-md">
