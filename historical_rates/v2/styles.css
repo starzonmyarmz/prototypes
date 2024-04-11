@@ -63,6 +63,10 @@ input[type=number] {
     &:first-child {
       border: 0;
     }
+
+    &:nth-child(even) {
+      display: none;
+    }
   }
 }
 
@@ -75,8 +79,6 @@ input[type=number] {
   width: 100%;
 
   li {
-    flex: 1;
-
     &:first-child .graph-rate {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
@@ -86,6 +88,10 @@ input[type=number] {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
+  }
+
+  li:first-child {
+    flex-grow: 1;
   }
 }
 

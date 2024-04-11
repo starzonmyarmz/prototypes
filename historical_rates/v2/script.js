@@ -8,18 +8,20 @@ const DATE_FORMAT = "MM/DD/YYYY"
 
 let data = signal([
   {
-    "rate": "100.00",
+    "rate": "100",
     "start": dayjs('3/28/2022'),
     "open": false
   },
   {
-    "rate": "90.00",
-    "start": dayjs('08-01-2019'),
+    "rate": "90",
+    "start": dayjs('1/1/1111'),
     "open": false
   }
 ].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1)))
 
-data = signal([])
+
+let years = []
+totalYears()
 
 const toggleNewPopover = signal(false)
 const newRate = signal('')
@@ -46,6 +48,8 @@ function editRate(index) {
 
   data.value = [...data.value].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1))
 
+  totalYears()
+
   newRate.value = ''
   newStart.value = ''
 }
@@ -56,9 +60,22 @@ function saveRate() {
     start: dayjs(newStart.value)
   }].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1))
 
+  totalYears()
+
   newRate.value = ''
   newStart.value = ''
   toggleNewPopover.value = false
+}
+
+function ellapsedMonths(date) {
+  const ellapsedYears = (2024 - date.$y) * 12
+  const ellapsedMonths = date.$M
+  return (ellapsedYears + ellapsedMonths) / (years.length * 12) * 100
+}
+
+function totalYears() {
+  years = []
+  for (let y = data.value[1].start.$y - 1 || 2024; y < 2025; y++) years.push(y)
 }
 
 function App() {
@@ -81,23 +98,18 @@ function App() {
         <div id="default"></div>
 
         <div id="custom">
-
           ${data.value.length > 0 ? html`
             <div id="graph">
               <ul id="graph-x">
-                <li>2018</li>
-                <li>2019</li>
-                <li>2020</li>
-                <li>2021</li>
-                <li>2021</li>
-                <li>2022</li>
-                <li>2023</li>
-                <li>2024</li>
+                ${years.map(year => html`
+                  <li>${year}</li>
+                `)}
               </ul>
               <ul id="graph-rates">
                 ${data.value.map((item, index) => {
                   return(html`
-                    <li class="pds-position-relative">
+                    ${console.log()}
+                    <li class="pds-position-relative" style="${index !== 0 ? `width: ${ellapsedMonths(item.start)}%` : ''}">
                       <button class="graph-rate ${item.open ? 'active' : ''}" onClick=${() => openEditRate(index)} aria-label="$${item.rate} starting ${dayjs(item.start).format(DATE_FORMAT)}" data-tooltip="n">$${item.rate}</button>
                       ${item.open && html`
                         <form onSubmit=${() => editRate(index)} class="pds-popover pds-popover-s edit-rate">
