@@ -63,10 +63,6 @@ input[type=number] {
     &:first-child {
       border: 0;
     }
-
-    &:nth-child(even) {
-      display: none;
-    }
   }
 }
 
@@ -75,7 +71,7 @@ input[type=number] {
   gap: 4px;
   height: 24px;
   position: absolute;
-  top: 24px;
+  top: 16px;
   width: 100%;
 
   li {
@@ -175,8 +171,9 @@ input[type=number] {
 }
 
 .edit-rate {
+  left: 50%;
   margin-top: 4px;
-  translate: -25%;
+  translate: -50%;
 }
 
 .new-rate {
