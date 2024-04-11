@@ -17,13 +17,8 @@ const data = signal([
     "rate": "90.00",
     "start": dayjs('08-01-2019'),
     "open": false
-  },
-  {
-    "rate": "80.00",
-    "start": dayjs('1-1-1111'),
-    "open": false
   }
-])
+].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1)))
 
 const toggleNewPopover = signal(false)
 const newRate = signal('')
@@ -48,7 +43,7 @@ function editRate(index) {
   data.value[index].start = dayjs(newStart.value)
   data.value[index].open = false
 
-  data.value = [...data.value]
+  data.value = [...data.value].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1))
 
   newRate.value = ''
   newStart.value = ''
@@ -58,7 +53,7 @@ function saveRate() {
   data.value = [...data.value, {
     rate: newRate.value,
     start: dayjs(newStart.value)
-  }]
+  }].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1))
 
   newRate.value = ''
   newStart.value = ''
@@ -100,7 +95,7 @@ function App() {
               ${data.value.map((item, index) => {
                 return(html`
                   <li class="pds-position-relative">
-                    <button class="graph-rate" onClick=${() => openEditRate(index)} aria-label="$${item.rate} starting ${dayjs(item.start).format(DATE_FORMAT)}" data-tooltip="n">$${item.rate}</button>
+                    <button class="graph-rate ${item.open ? 'active' : ''}" onClick=${() => openEditRate(index)} aria-label="$${item.rate} starting ${dayjs(item.start).format(DATE_FORMAT)}" data-tooltip="n">$${item.rate}</button>
                     ${item.open && html`
                       <form onSubmit=${() => editRate(index)} class="pds-popover pds-popover-s edit-rate">
                         <div class="pds-flex pds-items-end pds-gap-xs pds-p-md">

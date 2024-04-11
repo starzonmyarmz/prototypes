@@ -8,12 +8,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-:focus-visible {
-  outline: 2px solid black;
-  outline-offset: 2px;
-}
-
-
 #default,
 #custom,
 #add-custom-rate {
@@ -107,6 +101,12 @@ input[type=number] {
 
   &:hover {
     background: #1e48ae;
+  }
+
+  &:focus-visible,
+  &.active {
+    outline: 2px solid black;
+    outline-offset: 1px;
   }
 }
 
