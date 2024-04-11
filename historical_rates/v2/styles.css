@@ -1,0 +1,170 @@
+:focus-visible {
+  outline: 2px solid black;
+  outline-offset: 2px;
+}
+
+
+#default,
+#custom,
+#add-custom-rate {
+  display: none;
+}
+
+:has(#r1:checked) #default {
+  display: inherit;
+}
+
+:has(#r2:checked) {
+  #custom {
+    display: inherit;
+  }
+
+  #add-custom-rate {
+    display: inline-flex;
+  }
+}
+
+:has(.edit-rate, .new-rate) {
+  #dialog-actions {
+    display: none !important;
+  }
+}
+
+:has(.edit-rate) {
+  #add-custom-rate {
+    display: none !important;
+  }
+}
+
+
+#graph {
+  background: #fff;
+  border: 1px solid #bbb;
+  position: relative;
+}
+
+#graph-x {
+  color: #bbb;
+  display: flex;
+  font-size: 13px;
+
+  li {
+    border-left: 1px solid #ddd;
+    flex: 1;
+    padding-bottom: 4px;
+    padding-top: 50px;
+    text-align: center;
+    user-select: none;
+
+    &:first-child {
+      border: 0;
+    }
+  }
+}
+
+#graph-rates {
+  display: flex;
+  gap: 4px;
+  height: 24px;
+  position: absolute;
+  top: 24px;
+  width: 100%;
+
+  li {
+    flex: 1;
+
+    &:first-child .graph-rate {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:last-child .graph-rate {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.graph-rate {
+  background: #376bdd;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  height: 100%;
+  padding: 0 8px;
+  text-align: left;
+  width: 100%;
+
+  &:hover {
+    background: #1e48ae;
+  }
+}
+
+[data-tooltip] {
+  position: relative;
+
+  &::after {
+    background: #000;
+    border-radius: 4px;
+    color: #fff;
+    content: attr(aria-label);
+    display: block;
+    font-size: 13px;
+    line-height: 1;
+    opacity: 0;
+    padding: 8px;
+    position: absolute;
+    text-wrap: nowrap;
+    transition: none;
+    visibility: hidden;
+  }
+
+  &::before {
+    background: #000;
+    content: '';
+    display: block;
+    height: 5px;
+    opacity: 0;
+    position: absolute;
+    transition: none;
+    visibility: hidden;
+    width: 10px;
+  }
+
+  &:hover::after,
+  &:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.2s 0.4s;
+  }
+}
+
+[data-tooltip="n"] {
+  &::after {
+    left: 50%;
+    top: -8px;
+    translate: -50% -100%;
+  }
+
+  &::before {
+    clip-path: polygon(0% 0%, 100% 0%, 50% 100%, 0% 0%);
+    left: 50%;
+    top: -4px;
+    translate: -50% -100%;
+  }
+}
+
+#rate, #start {
+  width: 96px;
+}
+
+.edit-rate {
+  margin-top: 4px;
+  translate: -25%;
+}
+
+.new-rate {
+  position: absolute;
+  right: 0;
+  margin-top: 4px;
+}
