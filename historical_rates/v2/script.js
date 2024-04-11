@@ -32,6 +32,8 @@ const newStart = signal('')
 function openEditRate(index) {
   if (toggleNewPopover.value) return
   data.value.forEach((item) => item.open = false)
+  newRate.value = data.value[index].rate
+  newStart.value = data.value[index].start
   data.value[index].open = true
   data.value = [...data.value]
 }
@@ -39,6 +41,17 @@ function openEditRate(index) {
 function closeEditRate(index) {
   data.value.forEach((item) => item.open = false)
   data.value = [...data.value]
+}
+
+function editRate(index) {
+  data.value[index].rate = newRate.value
+  data.value[index].start = dayjs(newStart.value)
+  data.value[index].open = false
+
+  data.value = [...data.value]
+
+  newRate.value = ''
+  newStart.value = ''
 }
 
 function saveRate() {
@@ -89,20 +102,20 @@ function App() {
                   <li class="pds-position-relative">
                     <button class="graph-rate" onClick=${() => openEditRate(index)} aria-label="$${item.rate} starting ${dayjs(item.start).format(DATE_FORMAT)}" data-tooltip="n">$${item.rate}</button>
                     ${item.open && html`
-                      <div class="pds-popover pds-popover-s edit-rate">
+                      <form onSubmit=${() => editRate(index)} class="pds-popover pds-popover-s edit-rate">
                         <div class="pds-flex pds-items-end pds-gap-xs pds-p-md">
                           <div>
                             <label for="rate" class="pds-label pds-text-sm">Hourly rate</label>
-                            <input type="text" id="rate" class="pds-input pds-input-sm" value="$${item.rate}" />
+                            <input type="number" onInput=${({target}) => newRate.value = target.value} id="rate" class="pds-input pds-input-sm" value="${item.rate}" required/>
                           </div>
                           <div>
                             <label for="start" class="pds-label pds-text-sm">Start date</label>
-                            <input type="text" id="start" class="pds-input pds-input-sm" value=${dayjs(item.start).format(DATE_FORMAT)} />
+                            <input type="text" onInput=${({target}) => newStart.value = target.value} id="start" class="pds-input pds-input-sm" value=${dayjs(item.start).format(DATE_FORMAT)} required />
                           </div>
                           <button class="pds-button pds-button-primary pds-button-sm">Save rate</button>
                           <button class="pds-button pds-button-sm" onClick=${() => closeEditRate()}>Cancel</button>
                         </div>
-                      </div>
+                      </form>
                     `}
                   </li>
                 `)}
@@ -125,22 +138,22 @@ function App() {
             </div>
             <div style="height:34px"></div>
             <div class="pds-position-relative">
-              <button id="add-custom-rate" class="pds-button pds-button-sm" onClick=${() => toggleNewPopover.value = true}>Add custom rate</button>
+              <button id="add-custom-rate" class="pds-button pds-button-sm" onClick=${() => toggleNewPopover.value = true} disabled=${toggleNewPopover.value}>Add custom rate</button>
               ${toggleNewPopover.value && html`
-                <div class="pds-popover pds-popover-sw new-rate">
+                <form onSubmit=${() => saveRate()} class="pds-popover pds-popover-sw new-rate">
                   <div class="pds-flex pds-items-end pds-gap-xs pds-p-md">
                     <div>
                       <label for="rate" class="pds-label pds-text-sm">Hourly rate</label>
-                      <input type="text" onInput=${({target}) => newRate.value = target.value } id="rate" class="pds-input pds-input-sm" />
+                      <input type="number" onInput=${({target}) => newRate.value = target.value } id="rate" class="pds-input pds-input-sm" required />
                     </div>
                     <div>
                       <label for="start" class="pds-label pds-text-sm">Start date</label>
-                      <input type="text" onInput=${({target}) => newStart.value = target.value } id="start" class="pds-input pds-input-sm" />
+                      <input type="text" onInput=${({target}) => newStart.value = target.value } id="start" class="pds-input pds-input-sm" required />
                     </div>
-                    <button class="pds-button pds-button-primary pds-button-sm" onClick=${() => saveRate()}>Save rate</button>
+                    <button class="pds-button pds-button-primary pds-button-sm">Save rate</button>
                     <button class="pds-button pds-button-sm" onClick=${() => toggleNewPopover.value = false}>Cancel</button>
                   </div>
-                </div>
+                </form>
               `}
             </div>
           </div>
