@@ -68,6 +68,11 @@ function saveRate() {
   toggleNewPopover.value = false
 }
 
+function deleteRate(index) {
+  data.value.splice(index, 1)
+  data.value = [...data.value]
+}
+
 function ellapsedMonths(date) {
   let current = dayjs().$y
   let last = data.value[data.value.length - 1].start.$y
@@ -125,7 +130,7 @@ function App() {
                     <li class="pds-position-relative" style="${index !== 0 ? `width: ${ellapsedMonths(item.start)}%` : ''}">
                       <button class="graph-rate ${item.open ? 'active' : ''}" onClick=${() => openEditRate(index)} aria-label="$${item.rate} ${index === 0 ? `before ${dayjs(data.value[1].start).format(DATE_FORMAT)}` : `starting ${dayjs(item.start).format(DATE_FORMAT)}`}" data-tooltip="n">$${item.rate}</button>
                       ${item.open && html`
-                        <form onSubmit=${() => editRate(index)} class="pds-popover pds-popover-s edit-rate">
+                        <form class="pds-popover pds-popover-s edit-rate">
                           <div class="pds-flex pds-items-end pds-gap-xs pds-p-md">
                             <div>
                               <label for="rate_${index}" class="pds-label pds-text-sm rate">Hourly rate</label>
@@ -135,8 +140,9 @@ function App() {
                               <label for="start_${index}" class="pds-label pds-text-sm start">Start date</label>
                               <input type="text" onInput=${({target}) => newStart.value = target.value} id="start_${index}" class="pds-input pds-input-sm start" value=${dayjs(item.start).format(DATE_FORMAT)} required />
                             </div>
-                            <button class="pds-button pds-button-primary pds-button-sm">Save rate</button>
+                            <button class="pds-button pds-button-primary pds-button-sm" onClick=${() => editRate(index)}>Save rate</button>
                             <button class="pds-button pds-button-sm" onClick=${() => closeEditRate()}>Cancel</button>
+                            <button onClick=${() => deleteRate(index)}>Delete</button>
                           </div>
                         </form>
                       `}
