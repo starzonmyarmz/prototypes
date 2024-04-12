@@ -98,7 +98,7 @@ function App() {
             <input type="radio" id="r1" name="rg" checked="" />
             <div class="pds-flex pds-gap-xs">
               <label for="r1">Default billable rates</label>
-              <button class="pds-button-link pds-text-sm">View rates</button>
+              <button class="pds-button-link pds-text-xs">View rates</button>
             </div>
           </div>
           <div class="pds-radio">
