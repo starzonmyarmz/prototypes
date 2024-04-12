@@ -8,16 +8,18 @@ const DATE_FORMAT = "MM/DD/YYYY"
 
 let data = signal([
   {
-    "rate": "100",
-    "start": dayjs('3/28/2022'),
-    "open": false
-  },
-  {
     "rate": "90",
     "start": dayjs('1/1/1111'),
     "open": false
+  },
+  {
+    "rate": "100",
+    "start": dayjs('3/28/2022'),
+    "open": false
   }
-].sort((a, b) => (dayjs(a.start).isAfter(dayjs(b.start)) ? 1 : -1)))
+])
+
+// data = signal([])
 
 let years = []
 totalYears()
