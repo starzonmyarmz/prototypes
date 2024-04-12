@@ -67,14 +67,24 @@ function saveRate() {
 }
 
 function ellapsedMonths(date) {
-  const ellapsedYears = (2024 - date.$y) * 12
+  let current = dayjs().$y
+  let last = data.value[data.value.length - 1].start.$y
+  let range = dayjs(current).isAfter(dayjs(last)) ? current : last
+
+  const ellapsedYears = (range - date.$y) * 12
   const ellapsedMonths = date.$M
   return (ellapsedYears + ellapsedMonths) / (years.length * 12) * 100
 }
 
 function totalYears() {
   years = []
-  for (let y = data.value[1].start.$y - 1 || 2024; y < 2025; y++) years.push(y)
+
+  let first = data.value[1].start.$y - 1
+  let current = dayjs().$y
+  let last = data.value[data.value.length - 1].start.$y
+  let range = dayjs(current).isAfter(dayjs(last)) ? current : last
+
+  for (let y = first; y < range + 1; y++) years.push(y)
 }
 
 function App() {
@@ -86,7 +96,10 @@ function App() {
           <legend class="pds-label">What billable rates would you like to use?</lengend>
           <div class="pds-radio pds-mb-xs">
             <input type="radio" id="r1" name="rg" checked="" />
-            <label for="r1">Default billable rates</label>
+            <div class="pds-flex pds-gap-xs">
+              <label for="r1">Default billable rates</label>
+              <button class="pds-button-link pds-text-sm">View rates</button>
+            </div>
           </div>
           <div class="pds-radio">
             <input type="radio" id="r2" name="rg" checked="checked" />
@@ -158,11 +171,11 @@ function App() {
                     <div class="pds-flex pds-items-end pds-gap-xs pds-p-md">
                       <div>
                         <label for="new-rate" class="pds-label pds-text-sm">Hourly rate</label>
-                        <input type="number" onInput=${({target}) => newRate.value = target.value } id="new-rate" class="pds-input pds-input-sm rate" required />
+                        <input type="number" onInput=${({target}) => newRate.value = target.value } value=${newRate.value} id="new-rate" class="pds-input pds-input-sm rate" required />
                       </div>
                       <div>
                         <label for="new-start" class="pds-label pds-text-sm">Start date</label>
-                        <input type="text" onInput=${({target}) => newStart.value = target.value } id="new-start" class="pds-input pds-input-sm start" required />
+                        <input type="text" onInput=${({target}) => newStart.value = target.value } value=${newStart.value = dayjs().format(DATE_FORMAT)} id="new-start" class="pds-input pds-input-sm start" required />
                       </div>
                       <button class="pds-button pds-button-primary pds-button-sm">Save rate</button>
                       <button class="pds-button pds-button-sm" onClick=${() => toggleNewPopover.value = false}>Cancel</button>
