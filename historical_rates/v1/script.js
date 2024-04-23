@@ -6,20 +6,22 @@ import dayjs from 'https://esm.sh/dayjs/dayjs.min.js'
 const html = htm.bind(h)
 const DATE_FORMAT = "MM/DD/YYYY"
 
-const data = signal([
-  {
-    "rate": "100.00",
-    "start": dayjs('3/28/2022')
-  },
-  {
-    "rate": "90.00",
-    "start": dayjs('08-01-2019')
-  },
-  {
-    "rate": "80.00",
-    "start": dayjs('1-1-1111')
-  }
-])
+// const data = signal([
+//   {
+//     "rate": "100.00",
+//     "start": dayjs('3/28/2022')
+//   },
+//   {
+//     "rate": "90.00",
+//     "start": dayjs('08-01-2019')
+//   },
+//   {
+//     "rate": "80.00",
+//     "start": dayjs('1-1-1111')
+//   }
+// ])
+
+const data = signal([])
 
 const newRate = signal('')
 const newStart = signal('')
@@ -31,6 +33,8 @@ function addRow() {
     rate: parseDecimal(newRate.value),
     start: dayjs(newStart.value)
   }].sort((a, b) => (dayjs(b.start).isAfter(dayjs(a.start)) ? 1 : -1))
+
+  console.log(data.value)
 
   newRate.value = ''
   newStart.value = ''
@@ -48,11 +52,15 @@ function updateValue(prop, index) {
 }
 
 function validateRow() {
-  if (!newRate.value || !newStart.value) return
+  if (!newRate.value) return
+  if (!newStart.value && data.value.length > 0) return
+  if (!newStart.value && data.value.length === 0) {
+    newStart.value = '1/1/1111'
+  }
   addRow()
 }
 
-function parseForever(value) {
+function parseDate(value) {
   return dayjs(value).format(DATE_FORMAT)
 }
 
@@ -89,24 +97,23 @@ function App() {
                     </div>
                   </div>
                 </td>
-                <td class="pds-pr-0">
+                <td>
                   ${data.value.length === 1 ? html`
                     <div class="pds-text-sm pds-text-center">All time</div>
                   ` : html`
                     ${index === data.value.length - 1 ? html`
-                      <div class="pds-text-sm pds-text-center">Before ${parseForever(data.value[data.value.length - 2]?.start)}</div>
+                      <div class="pds-text-sm pds-text-center">Before ${parseDate(data.value[data.value.length - 2]?.start)}</div>
                     ` : html`
                       <div class="pds-flex pds-gap-xs faux-input date">
                         <span class="pds-color-muted">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         </span>
-                        <input type="text" onBlur=${(event) => updateValue('start', index)} value=${parseForever(item.start)} />
+                        <input type="text" onBlur=${(event) => updateValue('start', index)} value=${parseDate(item.start)} />
                       </div>
                     `}
                   `}
-
                 </td>
-                <td>
+                <td class="">
                   <button onClick=${() => removeRow(index)} class="pds-button pds-button-icon pds-button-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="X icon"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </button>
@@ -115,11 +122,6 @@ function App() {
             `)}
           )}
         ` : html`
-          <tr>
-            <td colspan="4" class="empty">
-              <div class="pds-empty">There are no billable rates!</div>
-            </td>
-          </tr>
         `}
 
         <tr class="form">
@@ -132,15 +134,19 @@ function App() {
               </div>
             </div>
           </td>
-          <td class="pds-pr-0">
-            <div class="pds-flex pds-gap-xs faux-input date">
-              <span class="pds-color-muted">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              </span>
-              <input type="text" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} />
-            </div>
-          </td>
           <td>
+            ${data.value.length > 0 ? html`
+              <div class="pds-flex pds-gap-xs faux-input date">
+                <span class="pds-color-muted">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </span>
+                <input type="text" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} />
+              </div>
+            ` : html`
+              <div class="pds-text-sm pds-text-center">All time</div>
+            `}
+          </td>
+          <td class="">
             <button onClick=${validateRow} class="pds-button pds-button-sm">Add</button>
           </td>
         </tr>
