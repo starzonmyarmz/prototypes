@@ -4,7 +4,7 @@ body {
   margin-top: 64px;
 }
 
-td, th {
+:is(td, th):last-child {
   width: 0.1%;
 }
 
@@ -12,10 +12,13 @@ td:last-child {
   text-align: center;
 }
 
-:where(td, th):not(:last-child) {
+:where(.hourly-rate, .start-date) {
   width: 128px;
 }
 
+.end-date {
+  width: 84px;
+}
 
 #root {
   width: fit-content;

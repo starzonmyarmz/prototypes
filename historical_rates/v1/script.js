@@ -34,8 +34,6 @@ function addRow() {
     start: dayjs(newStart.value)
   }].sort((a, b) => (dayjs(b.start).isAfter(dayjs(a.start)) ? 1 : -1))
 
-  console.log(data.value)
-
   newRate.value = ''
   newStart.value = ''
 }
@@ -60,8 +58,12 @@ function validateRow() {
   addRow()
 }
 
-function parseDate(value) {
+function parseToday(value) {
   return dayjs(value).format(DATE_FORMAT)
+}
+
+function parseYesterday(value) {
+  return dayjs(value).subtract(1, 'day').format(DATE_FORMAT)
 }
 
 function parseDecimal(value) {
@@ -78,8 +80,9 @@ function App() {
     <table class="pds-table">
       <thead>
         <tr>
-          <th class="pds-text-center">Hourly Rate</th>
-          <th class="pds-text-center">Start date</th>
+          <th class="hourly-rate pds-text-center">Hourly Rate</th>
+          <th class="start-date pds-text-center">Start date</th>
+          <th class="end-date pds-text-center">End date</th>
           <th></th>
         </tr>
       </thead>
@@ -99,21 +102,32 @@ function App() {
                 </td>
                 <td>
                   ${data.value.length === 1 ? html`
-                    <div class="pds-text-sm pds-text-center">All time</div>
+                    <div class="pds-text-lg pds-text-center pds-color-muted">∞</div>
                   ` : html`
                     ${index === data.value.length - 1 ? html`
-                      <div class="pds-text-sm pds-text-center">Before ${parseDate(data.value[data.value.length - 2]?.start)}</div>
+                      <div class="pds-text-lg pds-text-center pds-color-muted">∞</div>
                     ` : html`
                       <div class="pds-flex pds-gap-xs faux-input date">
                         <span class="pds-color-muted">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(29, 30, 28, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Calendar icon"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                         </span>
-                        <input type="text" onBlur=${(event) => updateValue('start', index)} value=${parseDate(item.start)} />
+                        <input type="text" onBlur=${(event) => updateValue('start', index)} value=${parseToday(item.start)} />
                       </div>
                     `}
                   `}
                 </td>
-                <td class="">
+                <td class="pds-text-center pds-color-muted">
+                  ${data.value.length === 1 ? html`
+                    <div class="pds-text-lg">∞</div>
+                  ` : html `
+                     ${index === 0 ? html`
+                     <div class="pds-text-lg">∞</div>
+                    ` : html`
+                      <div class="pds-text-sm">${parseYesterday(data.value[index - 1]?.start)}</div>
+                    `}
+                  `}
+                </td>
+                <td>
                   <button onClick=${() => removeRow(index)} class="pds-button pds-button-icon pds-button-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="X icon"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                   </button>
@@ -123,7 +137,6 @@ function App() {
           )}
         ` : html`
         `}
-
         <tr class="form">
           <td>
             <div class="faux-input">
@@ -143,10 +156,13 @@ function App() {
                 <input type="text" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} />
               </div>
             ` : html`
-              <div class="pds-text-sm pds-text-center">All time</div>
+              <div class="pds-text-lg pds-text-center pds-color-muted">∞</div>
             `}
           </td>
-          <td class="">
+          <td class="pds-text-lg pds-text-center pds-color-muted">
+            ${data.value.length > 0 ? '' : '∞'}
+          </td>
+          <td>
             <button onClick=${validateRow} class="pds-button pds-button-sm">Add</button>
           </td>
         </tr>
