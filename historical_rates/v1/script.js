@@ -102,10 +102,10 @@ function App() {
                 </td>
                 <td>
                   ${data.value.length === 1 ? html`
-                    <div class="pds-text-lg pds-text-center pds-color-muted">∞</div>
+                    <div class="pds-text-center pds-color-muted">—</div>
                   ` : html`
                     ${index === data.value.length - 1 ? html`
-                      <div class="pds-text-lg pds-text-center pds-color-muted">∞</div>
+                      <div class="pds-text-center pds-color-muted">—</div>
                     ` : html`
                       <div class="pds-flex pds-gap-xs faux-input date">
                         <span class="pds-color-muted">
@@ -118,10 +118,10 @@ function App() {
                 </td>
                 <td class="pds-text-center pds-color-muted">
                   ${data.value.length === 1 ? html`
-                    <div class="pds-text-lg">∞</div>
+                    <div class="pds-text-lg">—</div>
                   ` : html `
                      ${index === 0 ? html`
-                     <div class="pds-text-lg">∞</div>
+                     <div class="pds-text-lg">—</div>
                     ` : html`
                       <div class="pds-text-sm">${parseYesterday(data.value[index - 1]?.start)}</div>
                     `}
@@ -156,11 +156,11 @@ function App() {
                 <input type="text" value=${newStart.value} onInput=${(event) => { newStart.value = event.target.value }} />
               </div>
             ` : html`
-              <div class="pds-text-lg pds-text-center pds-color-muted">∞</div>
+              <div class="pds-text-center pds-color-muted">—</div>
             `}
           </td>
-          <td class="pds-text-lg pds-text-center pds-color-muted">
-            ${data.value.length > 0 ? '' : '∞'}
+          <td class="pds-text-center pds-color-muted">
+            ${data.value.length > 0 ? '' : '—'}
           </td>
           <td>
             <button onClick=${validateRow} class="pds-button pds-button-sm">Add</button>
