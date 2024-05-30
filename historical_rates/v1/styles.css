@@ -1,7 +1,18 @@
 body {
+  background: rgb(0 0 0 / 0.6);
   display: grid;
+  min-height: 100dvh;
   justify-content: center;
-  margin-top: 64px;
+}
+
+th:first-child,
+td:first-child {
+  border-left: 1px solid #bbb;
+}
+
+th:last-child,
+td:last-child {
+  border-right: 1px solid #bbb;
 }
 
 :is(td, th):last-child {
@@ -73,28 +84,17 @@ input {
   }
 }
 
-.error-row {
-  background: #fde2dd;
-  border-bottom: 1px solid #ef8b81 !important;
-  border-top: 1px solid #ef8b81 !important;
-  height: revert !important;
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
-  position: relative;
-  text-align: center !important;
-  top: -1px;
-}
-
-
-
-.empty {
-  padding: 0 !important;
+tr.spacer {
+  td {
+    height: 8px !important;
+    border: 0;
+    padding: 0;
+  }
 }
 
 .form {
   background: #fff8f1;
   position: relative;
-  top: -1px;
 
   td {
     border-top: 1px solid #ffa26c;
