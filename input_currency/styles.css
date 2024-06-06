@@ -1,0 +1,37 @@
+body {
+  margin: 32px;
+}
+
+.container {}
+
+.pds-input-currency {
+  align-items: baseline;
+  display: flex;
+  gap: var(--pds-space-xs);
+  width: 124px;
+
+  input {
+    background: transparent;
+    border: 0;
+    flex: 1;
+    height: 100%;
+    text-align: right;
+    width: 100%;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .pds-currency-prefix,
+  .pds-currency-suffix {
+    color: var(--pds-text-muted);
+    height: 100%;
+    user-select: none;
+  }
+
+  &:has(input:focus) {
+    border-color: var(--pds-charcoal);
+    outline: 1px solid var(--pds-charcoal);
+  }
+}

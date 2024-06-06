@@ -78,7 +78,7 @@ function removeRow(index) {
 function App() {
   return (html`
     <dialog class="pdsf-dialog pds-dialog-open pds-dialog-md" open>
-      <h1 class="pds-dialog-title">Edit George’s billable rates</h1>
+      <h1 class="pds-dialog-title">Edit George’s cost rates</h1>
       <table class="pds-table">
         <thead>
           <tr>
@@ -178,7 +178,7 @@ function App() {
         </tbody>
       </table>
       <div class="pds-mt-lg pds-flex pds-gap-xs">
-        <button class="pds-button pds-button-primary">Save billable rates</button>
+        <button class="pds-button pds-button-primary">Save cost rates</button>
         <button class="pds-button">Cancel</button>
       </div>
     </dialog>
