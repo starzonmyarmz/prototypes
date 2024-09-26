@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porchlight Popovers</title>
+    <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪚</text></svg>">
+    <link rel="stylesheet" href="https://porchlight.design/porchlight.css">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!-- https://developer.chrome.com/blog/anchor-positioning-api -->
+    <div id="input">
+      <label for="bposition">Button Position</label>
+      <select id="bposition">
+        <option value="nw">Northwest</option>
+        <option value="n">North</option>
+        <option value="ne">Northeast</option>
+        <option value="w">West</option>
+        <option value="c" selected>Center</option>
+        <option value="e">East</option>
+        <option value="sw">Southwest</option>
+        <option value="s">South</option>
+        <option value="se">Southeast</option>
+      </select>
+
+      <label for="pposition">Popover Position</label>
+      <select id="pposition">
+        <option value="nw">Northwest</option>
+        <option value="n">North</option>
+        <option value="ne">Northeast</option>
+        <option value="w">West</option>
+        <option value="e">East</option>
+        <option value="sw">Southwest</option>
+        <option value="s">South</option>
+        <option value="se">Southeast</option>
+      </select>
+    </div>
+    <div id="output">
+      <button id="anchor-button" class="pds-button button-c" popovertarget="anchor-popover">
+        Toggle Popover
+      </button>
+      <div id="anchor-popover" class="popover popover-nw" popover>
+        Content in my popover
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
