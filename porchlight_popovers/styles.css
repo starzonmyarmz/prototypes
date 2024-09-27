@@ -1,11 +1,5 @@
 /* PDSF POPOVERS BRUH */
 
-/* @supports not (anchor-name: --test) {
-  .pdsf-popover::backdrop {
-    background: var(--pds-gray) !important;
-  }
-} */
-
 .pdsf-popover {
   background: var(--pds-white);
   background-clip: padding-box;
