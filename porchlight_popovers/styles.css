@@ -1,3 +1,107 @@
+/* PDSF POPOVERS BRUH */
+
+/* @supports not (anchor-name: --test) {
+  .pdsf-popover::backdrop {
+    background: var(--pds-gray) !important;
+  }
+} */
+
+.pdsf-popover {
+  background: var(--pds-white);
+  background-clip: padding-box;
+  border: 1px solid var(--pds-gray-alpha-150);
+  /* border-radius: $pds-radius-sm; */
+  border-radius: var(--pds-space-sm);
+  filter: drop-shadow(0 2px 3px var(--pds-gray-alpha-200));
+  max-width: calc(100dvh - var(--pds-space-xl));
+  max-width: calc(100dvw - var(--pds-space-xl));
+  padding: 0;
+  transition: all 0.3s 0.1s;
+  will-change: contents;
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+.pdsf-popover::backdrop {
+  background: var(--pds-gray);
+}
+
+@supports (anchor-name: --test) {
+  @media (min-width: 768px) {
+    .pdsf-popover {
+      inset: auto;
+      position: absolute;
+      position-try-fallbacks: flip-inline flip-block;
+      margin: 0;
+
+      &::backdrop {
+        background: transparent;
+      }
+    }
+
+    [class*="pdsf-popover-n"] {
+      bottom: anchor(top);
+      margin-bottom: var(--pds-space-xs);
+
+      @starting-style {
+        translate: 0 var(--pds-space-xs);
+      }
+    }
+
+    [class*="pdsf-popover-s"] {
+      margin-top: var(--pds-space-xs);
+      top: anchor(bottom);
+
+      @starting-style {
+        translate: 0 calc(var(--pds-space-xs) * -1);
+      }
+    }
+
+    .pdsf-popover-nw,
+    .pdsf-popover-sw {
+      right: anchor(right);
+    }
+
+    .pdsf-popover-n,
+    .pdsf-popover-s {
+      justify-self: anchor-center;
+    }
+
+    .pdsf-popover-ne,
+    .pdsf-popover-se {
+      left: anchor(left);
+    }
+
+    .pdsf-popover-w,
+    .pdsf-popover-e {
+      align-self: anchor-center;
+    }
+
+    .pdsf-popover-w {
+      right: anchor(left);
+      margin-right: var(--pds-space-xs);
+
+      @starting-style {
+        translate: var(--pds-space-xs);
+      }
+    }
+
+    .pdsf-popover-e {
+      left: anchor(right);
+      margin-left: var(--pds-space-xs);
+
+      @starting-style {
+        translate: calc(var(--pds-space-xs) * -1);
+      }
+    }
+  }
+}
+
+
+/* Non-PDS demo code */
+
 body {
   display: grid;
   height: 100dvh;
@@ -27,6 +131,10 @@ label {
   anchor-name: --anchor-el;
 }
 
+#anchor-popover {
+  position-anchor: --anchor-el;
+}
+
 .button-nw {
   align-self: start;
   justify-self: left;
@@ -45,8 +153,6 @@ label {
   justify-self: left;
 }
 
-.button-c {}
-
 .button-e {
   justify-self: right;
 }
@@ -63,104 +169,4 @@ label {
 .button-se {
   align-self: end;
   justify-self: right;
-}
-
-.popover {
-  border: 1px solid var(--pds-gray-300);
-  border-radius: var(--pds-space-sm);
-  inset: auto;
-  margin: 0;
-  padding: var(--pds-space-md);
-  position: absolute;
-  position-anchor: --anchor-el;
-  position-try-fallbacks: flip-inline flip-block;
-  transition: all 0.3s;
-
-  .always-visible & {
-    display: block !important;
-  }
-
-  @starting-style {
-    opacity: 0;
-  }
-}
-
-.popover-nw {
-  bottom: anchor(top);
-  margin-bottom: var(--pds-space-xs);
-  right: anchor(right);
-
-  @starting-style {
-    translate: 0 var(--pds-space-xs);
-  }
-}
-
-.popover-n {
-  bottom: anchor(top);
-  justify-self: anchor-center;
-  margin-bottom: var(--pds-space-xs);
-
-  @starting-style {
-    translate: 0 var(--pds-space-xs);
-  }
-}
-
-.popover-ne {
-  bottom: anchor(top);
-  left: anchor(left);
-  margin-bottom: var(--pds-space-xs);
-
-  @starting-style {
-    translate: 0 var(--pds-space-xs);
-  }
-}
-
-.popover-w {
-  align-self: anchor-center;
-  right: anchor(left);
-  margin-right: var(--pds-space-xs);
-
-  @starting-style {
-    translate: var(--pds-space-xs);
-  }
-}
-
-.popover-e {
-  align-self: anchor-center;
-  left: anchor(right);
-  margin-left: var(--pds-space-xs);
-
-  @starting-style {
-    translate: calc(var(--pds-space-xs) * -1);
-  }
-}
-
-.popover-sw {
-  margin-top: var(--pds-space-xs);
-  right: anchor(right);
-  top: anchor(bottom);
-
-  @starting-style {
-    translate: 0 calc(var(--pds-space-xs) * -1);
-  }
-}
-
-.popover-s {
-  justify-self: anchor-center;
-  margin-top: var(--pds-space-xs);
-  top: anchor(bottom);
-
-  @starting-style {
-    translate: 0 calc(var(--pds-space-xs) * -1);
-  }
-}
-
-.popover-se {
-  left: anchor(left);
-  margin-top: var(--pds-space-xs);
-  top: anchor(bottom);
-
-  @starting-style {
-    translate: 0 calc(var(--pds-space-xs) * -1);
-  }
 }

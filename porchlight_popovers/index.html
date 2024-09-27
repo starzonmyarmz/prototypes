@@ -42,8 +42,37 @@
       <button id="anchor-button" class="pds-button button-c" popovertarget="anchor-popover">
         Toggle Popover
       </button>
-      <div id="anchor-popover" class="popover popover-nw" popover>
-        Content in my popover
+      <div id="anchor-popover" class="pdsf-popover pdsf-popover-nw pds-p-md" popover>
+        <h4>How we calculate revenue</h4><hr class="pds-mt-xs">
+        <h5 class="pds-mb-xs">Time and materials projects</h5>
+        <p class="pds-color-muted pds-mb-xs">Billable rate is determined by project type</p>
+        <div class="pds-card pds-p-md pds-mb-md pds-card-warm-white">
+          <math>
+            <mrow>
+              <mi>Revenue</mi>
+              <mo>=</mo>
+              <mrow>
+                <mi>Billable time tracked</mi>
+                <mo>×</mo>
+                <mi>Billable rate</mi>
+              </mrow>
+            </mrow>
+          </math>
+        </div>
+        <h5 class="pds-mb-xs"> Fixed fee projects</h5>
+        <div class="pds-card pds-p-md pds-card-warm-white">
+          <math>
+            <mrow>
+              <mi>Revenue</mi>
+              <mo>=</mo>
+              <mrow>
+                <mi>Total project fees</mi>
+                <mo>/</mo>
+                <mi>Project time frame</mi>
+              </mrow>
+            </mrow>
+          </math>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>

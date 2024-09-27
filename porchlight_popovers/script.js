@@ -6,6 +6,6 @@ document.querySelector("#bposition").addEventListener("change", ({ target }) => 
 })
 
 document.querySelector("#pposition").addEventListener("change", ({ target }) => {
-  popover.className = `popover popover-${target.value}`;
+  popover.className = `pdsf-popover pdsf-popover-${target.value} pds-p-md`;
 })
 
